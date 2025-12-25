@@ -1,0 +1,26 @@
+# Kernel Index (KEX)
+Patent-pending, royalty-bearing decision protocol.  
+25 bp of every compliance decision → irrevocable trust.
+
+## Live on Base test-net
+- Same CREATE2 address on every L2  
+- Royalty splitter: `0x9f3D7662f0D76fcF86fF3Ef42bF6c0E25742A38B`  
+- Patent: USPTO provisional filed (micro-entity, $0 fee)
+
+## Quick start (mobile)
+1. Open [Remix](https://remix.ethereum.org) → upload `chain/src/*.sol`  
+2. Compile 0.8.23 → deploy via CREATE2 → royalty appears instantly.
+
+## Trust structure
+Legal owner: *Lex Libertatum Trust, A.T.W.W., Trustee*  
+Irrevocable, discretionary, spendthrift, complex.
+
+## Repo tree
+├── chain/          Solidity + Foundry
+├── kernel/         no-std Rust kernels
+└── patents/        US-63-XXX-PROV.md.    
+
+## Road-map
+- Main-net deploy (30 days)  
+- KEX index token (60 days)  
+- Vertical kits: courts, oil, healthcare, aerospace
