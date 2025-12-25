@@ -1,3 +1,7 @@
+# Kernel Index (KEX) | Patent-Pending Royalty Protocol  
+![Rust](https://github.com/rmj95fgb7x-art/lex-liberatum-kernels/actions/workflows/rust.yml/badge.svg)  
+[![License: Lex-Libertatum-1.0](https://img.shields.io/badge/license-Lex--Libertatum--1.0-blue)](LICENSE)
+
 # lex-liberatum-kernels
 Patent-pending, royalty-bearing decision kernels. 25 bp of every compliance decision → irrevocable trust. Same CREATE2 on every L2.i
 # Kernel Index (KEX)
