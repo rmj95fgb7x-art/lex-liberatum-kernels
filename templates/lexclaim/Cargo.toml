@@ -1,0 +1,8 @@
+[package]
+name = "lexclaim"
+version = "0.2.0"
+edition = "2021"
+license = "Lex-Libertatum-1.0"
+
+[dependencies]
+sha3 = { version = "0.10", default-features = false }
