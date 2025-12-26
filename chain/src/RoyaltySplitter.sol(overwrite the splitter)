@@ -1,0 +1,66 @@
+// SPDX-License-Identifier: Lex-Libertatum-1.0
+// © 2025 Lex Libertatum Trust, A.T.W.W., Trustee – all rights reserved.
+// Patent: PCT/US2025/63-XXX-PROV (Lex Libertatum Trust, A.T.W.W., Trustee)
+
+pragma solidity ^0.8.23;
+
+/**
+ * @title Lex-Libertatum Royalty Splitter
+ * @notice Skims 25 basis points (0.25 %) on every payment received
+ *         and forwards it to a single, hard-coded irrevocable beneficiary.
+ *         Remaining 99.75 % is forwarded to the original recipient.
+ * @dev Immutable beneficiary set once at deployment; no admin keys.
+ */
+
+contract RoyaltySplitter {
+    /// Hard-coded beneficiary – Lex Libertatum Trust treasury wallet
+    address public constant BENEFICIARY = 0x9f3D7662f0D76fcF86fF3Ef42bF6c0E25742A38B;
+
+    /// Royalty rate: 25 basis points = 0.25 % = 25 / 10 000
+    uint256 public constant ROYALTY_BPS = 25;
+    uint256 private constant BPS_DENOMINATOR = 10_000;
+
+    /// Event for transparency on every royalty extraction
+    event RoyaltyPaid(address indexed payer, uint256 amount);
+
+    /// @notice Receive ETH and automatically split royalty
+    receive() external payable {
+        _split(msg.value);
+    }
+
+    /// @notice Fallback to handle any direct sends
+    fallback() external payable {
+        _split(msg.value);
+    }
+
+    /// @notice Public function for kernels to call explicitly (e.g., after verdict)
+    /// @param amount The full payment amount being routed
+    function splitPayment(uint256 amount) external payable {
+        require(msg.value == amount, "ETH must match amount");
+        _split(amount);
+    }
+
+    /// @dev Internal split logic
+    function _split(uint256 amount) internal {
+        if (amount == 0) return;
+
+        uint256 royalty = (amount * ROYALTY_BPS) / BPS_DENOMINATOR;
+        uint256 remainder = amount - royalty;
+
+        if (royalty > 0) {
+            (bool success, ) = BENEFICIARY.call{value: royalty}("");
+            require(success, "Royalty transfer failed");
+            emit RoyaltyPaid(msg.sender, royalty);
+        }
+
+        if (remainder > 0) {
+            (bool success, ) = msg.sender.call{value: remainder}("");
+            require(success, "Remainder transfer failed");
+        }
+    }
+
+    /// @notice View function to compute royalty for a given amount
+    function computeRoyalty(uint256 amount) external pure returns (uint256) {
+        return (amount * ROYALTY_BPS) / BPS_DENOMINATOR;
+    }
+}
