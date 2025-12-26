@@ -1,0 +1,10 @@
+[package]
+name = "aiox_kernel"
+version = "0.1.0"
+edition = "2021"
+authors = ["Lex Libertatum Trust, A.T.W.W., Trustee"]
+license = "LICENCE-RDR"
+description = "Constraint-first, fail-closed, patent-marked, royalty-bearing decision gate"
+
+[dependencies]
+# none – pure no_std core
