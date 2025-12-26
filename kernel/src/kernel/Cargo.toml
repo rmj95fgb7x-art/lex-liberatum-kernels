@@ -1,0 +1,10 @@
+[package]
+name = "metalex_kernel"
+version = "0.1.0"
+edition = "2021"
+authors = ["Lex Libertatum Trust, A.T.W.W., Trustee"]
+license = "LICENCE-RDR"
+description = "Patent-marked, royalty-bearing, nanosecond rule-clock kernel"
+
+[dependencies]
+sha3 = { version = "0.10", default-features = false }
