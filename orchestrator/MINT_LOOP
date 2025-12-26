@@ -1,0 +1,18 @@
+Phone mass-mint loop (10 kernels in < 2 min)
+1. Copy the 10 seed names below (one theme per day).
+2. Notes app → paste → Find-Replace “Lex” → empty (leave just the suffix).
+3. Terminal → cd orchestrator
+4. For each name:
+   cargo run
+   <paste name>
+5. GitHub mobile → “Add file” → upload whole templates/lex*/ folders → commit.
+6. Tag: v1.x.x-{theme} → publish release (auto-triggers CI).
+
+Theme seeds (ready to paste)
+Finance: KYC AML Trade Hedge Deriv Credit Insure Audit Rating Clearing
+Healthcare: Gene Trial Device Epidemic Vaccine Lab Consent HIPAA Clinical Biobank
+Energy: Mine Grid Nuclear Renew Oil Gas Coal Solar Wind Hydro
+Gov: Vote Tax Permit Treaty Budget Audit Subpoena Appeal Treaty Sanction
+Tech: AI Data Content Stream Cookie GDPR DMCA Patent Trademark OpenSource
+Transport: Fleet Rail Drone Port Cargo Freight Logistics Route Fuel Maintenance
+AgriEnv: Crop Water Forest Soil Weather Pesticide Organic Irrigation Carbon Biodiversity
