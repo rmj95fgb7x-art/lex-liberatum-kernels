@@ -1,0 +1,60 @@
+# Meta-Lex Kernel
+
+**Patent-pending, royalty-bearing decision kernel.**  
+25 bp of every compliance decision → irrevocable trust.  
+Same CREATE2 on every L2.
+
+**Legal owner:** *Lex Libertatum Trust, A.T.W.W., Trustee*  
+Irrevocable, discretionary, spendthrift, complex.
+
+**Patent:** USPTO provisional filed (micro-entity, $0 fee)  
+**Royalty splitter:** `0x9f3D7662f0D76fcF86fF3Ef42bF6c0E25742A38B` (CREATE2-deployed)
+
+## Vision
+
+Meta-Lex is the self-healing rule clock of the Lex Libertatum ecosystem — the foundational kernel that verifies whether any action, transaction, or state transition complies with a specified legal or regulatory rule at an exact nanosecond in time.
+
+It functions as a deterministic, immutable oracle for legal truth: given a rule set (encoded as pure code), a timestamped input, and cryptographic proof of context, Meta-Lex issues a court-ready certificate attesting compliance (or non-compliance).
+
+Meta-Lex powers every higher-level kernel (LexClaim, LexYacht, LexDocket, etc.) by providing the base-layer guarantee: "This event satisfied the encoded law at this precise moment."
+
+It turns subjective legal interpretation into objective, reproducible computation — enforceable truth, directly in code.
+
+## Uniqueness
+
+- No direct equivalent exists: combines legal-grade rule encoding with nanosecond-precision verification and immutable certification.
+- Pure deterministic code (no AI, no oracles, no trusted parties).
+- Self-healing: rule updates are versioned immutably; old rules remain verifiable forever.
+- Composable: any kernel or external system can query Meta-Lex for a compliance certificate.
+- Patent-pending design ensures micro-royalty capture on every decision across all dependent kernels.
+
+## Core Flow
+
+1. **Rule Registration** — Trusted rule authority (court, regulator, or protocol governance) deploys a rule module.
+2. **Verification Request** — Adapter submits input data + Merkle proof + timestamp.
+3. **Decision Execution** — Meta-Lex runs the exact rule version applicable at the anchor timestamp.
+4. **Certificate Issuance** — If compliant → mint invoice via DecisionToken/RoyaltySplitter (25 bp to trust).
+5. **Immutable Record** — Certificate hash stored forever; verifiable by any court or auditor.
+
+## Implementation (Dual Rust + Solidity)
+
+### Rust Side (`kernel/meta_lex/src/lib.rs` — no-std core)
+```rust
+// SPDX-License-Identifier: UNLICENSED
+// Patent-pending © Lex Libertatum Trust
+
+#![no_std]
+
+pub struct ComplianceProof {
+    pub rule_version: u64,
+    pub anchor_timestamp: u64,
+    pub input_hash: [u8; 32],
+    pub merkle_proof: Vec<[u8; 32]>,
+}
+
+pub fn verify_compliance(proof: ComplianceProof) -> bool {
+    // Deterministic rule execution at exact timestamp
+    // Placeholder: load rule bytecode for version + timestamp
+    // Execute in isolated VM → return true/false
+    unimplemented!()
+}
