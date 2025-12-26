@@ -1,0 +1,23 @@
+name: auto-merge
+on:
+  pull_request:
+    paths:
+      - 'templates/lex*/src/lib.rs'
+
+jobs:
+  approve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: |
+          for kr in templates/lex*/; do
+            cd "$kr" && cargo check --all-targets && cd -
+          done
+      - uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: pascalgn/merge-pull-request-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_METHOD: squash
