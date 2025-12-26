@@ -1,0 +1,52 @@
+# LexYacht
+
+**LexLibertatum Kernel** – Immutable Marine & Yacht Safety Certificate Logger
+
+### Purpose
+
+`LexYacht` is premium, royalty-bearing infrastructure for logging mandatory yacht safety certificates on-chain (IMO SOLAS, USCG CFR Title 46, Lloyd’s Register, flag-state surveys).
+
+It targets the highest-value compliance vein in maritime:
+- Every yacht > 300 GT must carry valid safety certificates before departure.
+- Non-compliance = immediate port exclusion + fines up to $500k+ per incident.
+- Data is confidential & often export-controlled → only US-based, ITAR-compliant pipelines are legally viable.
+
+This kernel provides:
+- Immutable, timestamped proof of certificate filing.
+- Cryptographic ownership/title registry (ERC-721).
+- Merkle-proof attachment of sensitive documents (surveys, class certificates, bills of sale).
+- Deterministic compliance checks (via no-std Rust kernel).
+- 25 bp royalty on every compliance decision → irrevocable trust.
+
+Neutral infrastructure only: no oracles, no admins, no governance, no backdoors.
+
+### Royalty Model
+
+- Tier: Premium Marine (8–10% equivalent, same as pharma/space).
+- Volume: ~8,000 superyacht/mega-yacht certificates processed daily globally (renewals, surveys, flag changes).
+- Gas: ~125k per filing.
+- Royalty: 25 basis points → ~$27M annual from yachts alone.
+- Upside: Extend to cruise ships, commercial fleets → $150M+ yr runway by 2028.
+
+### Components
+
+- `chain/src/LexYachtAdapter.sol` – ERC-721 adapter for immutable certificate tokens + data hashes.
+- `templates/lexyacht/src/lib.rs` – no-std Rust kernel for deterministic SOLAS/USCG rule enforcement.
+- `templates/DeployLexYacht.sol` – Foundry deployment script.
+
+### Features
+
+- Unique yacht tokens (IMO number + tokenId).
+- Off-chain document proofs via Merkle roots + IPFS/Arweave URI.
+- Expiry-aware validation hooks (Rust kernel).
+- Composable with `LexClaim` (marine insurance payouts), `LexCola` (liens), `LexTrack` (provenance).
+- Immutable after deployment – upgradability-free.
+
+### Deployment
+
+```bash
+forge script templates/DeployLexYacht.sol:DeployLexYacht \
+    --rpc-url $RPC_URL \
+    --private-key $PRIVATE_KEY \
+    --broadcast \
+    --verify
