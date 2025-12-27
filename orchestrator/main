@@ -14,6 +14,16 @@ fn main() {
         kernel,
     )
     .unwrap();
+    // copy integration stubs
+    std::fs::write(
+        format!("templates/lex{}/src/adapter.rs", industry.to_lowercase()),
+        include_str!("adapter.rs.stub"),
+    ).unwrap();
+    std::fs::write(
+        format!("templates/lex{}/src/cache.rs", industry.to_lowercase()),
+        include_str!("cache.rs.stub"),
+    ).unwrap();
+
     println!("✅ Lex{} kernel created", industry.to_lowercase());
 }
 
