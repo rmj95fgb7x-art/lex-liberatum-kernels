@@ -1,0 +1,28 @@
+name: kex-daily
+on:
+  schedule:
+    - cron: '0 2 * * *'   # 02:00 UTC every day
+  workflow_dispatch:      # manual trigger button
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: |
+          # build tools
+          cargo build --release --manifest-path kex/oracle/Cargo.toml
+          cargo build --release --manifest-path kex/index/Cargo.toml
+          # compute day number (unix epoch days)
+          DAY=$(expr $(date +%s) / 86400)
+          # run oracle
+          ./target/release/kex-oracle -d $DAY -o kex/out/day-$DAY.csv
+          # run index (reads csv, outputs json)
+          ./target/release/kex-index > kex/out/index-$DAY.json
+      - name: commit & push
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add kex/out/
+          git diff --cached --quiet || (git commit -m "kex daily $(date -I)" && git push)
