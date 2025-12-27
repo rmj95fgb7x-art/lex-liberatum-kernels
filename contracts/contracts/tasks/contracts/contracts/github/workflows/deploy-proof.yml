@@ -1,0 +1,16 @@
+name: deploy-proof
+on:
+  workflow_dispatch:   # manual button only (safe)
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm i
+      - run: echo "PK=${{ secrets.TESTNET_PK }}" >> $GITHUB_ENV
+      - run: npx hardhat deploy --network baseSepolia | tee out.txt
+      - run: grep -o 'https://sepolia.basescan.org/tx/0x[0-9a-f]*' out.txt > tx.txt
+      - uses: actions/upload-artifact@v4
+        with: { name: basescan-tx, path: tx.txt }
