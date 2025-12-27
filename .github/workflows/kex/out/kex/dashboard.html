@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>KEX Live Dashboard</title>
+    <meta http-equiv="refresh" content="300">
+    <style>body{font-family:monospace;margin:2rem}table{border-collapse:collapse}th,td{padding:6px 12px;border:1px solid #ccc}</style>
+  </head>
+  <body>
+    <h1>KEX Daily Index Levels</h1>
+    <p>Auto-refreshes every 5 min. Source: <code>kex/out/index-LATEST.json</code></p>
+    <table>
+      <thead><tr><th>Kernel</th><th>Fee wt (bp)</th><th>Vol wt (bp)</th><th>Eq wt (bp)</th></tr></thead>
+      <tbody id="tb"></tbody>
+    </table>
+    <script>
+      fetch('https://raw.githubusercontent.com/rmj95fgb7x-art/lex-liberatum-kernels/main/kex/out/index-LATEST.json')
+        .then(r => r.json())
+        .then(j => {
+          const tb = document.getElementById('tb');
+          j.forEach((r,i) => {
+            const tr = tb.insertRow();
+            tr.insertCell().innerText = r.name;
+            tr.insertCell().innerText = r.fee_weight;
+            tr.insertCell().innerText = r.vol_weight;
+            tr.insertCell().innerText = r.eq_weight;
+          });
+        })
+        .catch(console.error);
+    </script>
+  </body>
+</html>
