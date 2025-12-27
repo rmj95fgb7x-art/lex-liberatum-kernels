@@ -1,0 +1,27 @@
+//! Legacy-system adapter layer.
+#![cfg(feature = "legacy-adapter")]
+
+use crate::{Report, Certificate, Decision};
+use alloc::vec::Vec;
+
+/// fixed-width mainframe record → Report
+pub fn fixed_to_report(record: &[u8]) -> Report {
+    let mut id = [0u8; 32];
+    id.copy_from_slice(&record[0..32]);
+    let score = record[32];
+    let nanos = u64::from_be_bytes(record[33..41].try_into().unwrap());
+    let metadata = record[41..].to_vec();
+    Report { id, score, nanos, metadata }
+}
+
+/// Certificate → fixed-width 64-byte response
+pub fn cert_to_fixed(cert: &Certificate) -> [u8; 64] {
+    let mut out = [0u8; 64];
+    out[0..32].copy_from_slice(&cert.id);
+    out[32] = cert.score;
+    out[33..41].copy_from_slice(&cert.nanos.to_be_bytes());
+    out[41] = cert.decision as u8;
+    out[42..48].copy_from_slice(&cert.patent_tag);
+    out[48..56].copy_from_slice(&cert.call_seq.to_be_bytes());
+    out
+}
