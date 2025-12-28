@@ -1,0 +1,2 @@
+Finance/RegTech seed names (copy into CLI):
+LexBank LexTrade LexLend LexClear LexFx LexStable LexAudit LexTreasury LexSecurities LexDeriv
