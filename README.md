@@ -1,50 +1,58 @@
-## Live on Base test-net
-- RoyaltySplitter: `0xYourSplitterAddressHere` (update after main-net deploy)
+# lex-liberatum-kernels
+
+**Patent-pending, royalty-bearing decision kernels.**  
+25 bp of every compliance decision → irrevocable trust. Same CREATE2 on every L2.
+
+## Live on Base Sepolia Testnet
+- RoyaltySplitter: [0x...](https://sepolia.basescan.org/address/...) *(update with actual address post-deploy)*
 - KEX index: coming in v1.1.0
 
-## 25 Patent-Marked, Royalty-Bearing Kernels
-| Kernel | Industry | Daily Gas* | Royalty/yr* | Live Repo |
-|--------|----------|-------------|-------------|-----------|
-| [LexDocket](templates/lexdocket) | Court filings | 50 k | $4 M | [🔗](templates/lexdocket) |
-| [LexWell](templates/lexwell) | Oil-field safety | 80 k | $6 M | [🔗](templates/lexwell) |
-| [LexChart](templates/lexchart) | Pharma prior-auth | 120 k | $9 M | [🔗](templates/lexchart) |
-| [LexOrbit](templates/lexorbit) | Satellite maneuvers | 120 k | $9 M | [🔗](templates/lexorbit) |
-| [LexCola](templates/lexcola) | TTB bottle labels | 100 k | $7 M | [🔗](templates/lexcola) |
-| [LexDerm](templates/lexderm) | Cosmetics ingredients | 95 k | $7 M | [🔗](templates/lexderm) |
-| [LexPay](templates/lexpay) | Payroll/wage filings | 110 k | $8 M | [🔗](templates/lexpay) |
-| [LexToy](templates/lextoy) | Children’s toy safety | 95 k | $7 M | [🔗](templates/lextoy) |
-| [LexBullion](templates/lexbullion) | Precious-metals assay | 85 k | $6 M | [🔗](templates/lexbullion) |
-| [LexCrop](templates/lexcrop) | Cannabis/hemp COA | 130 k | $10 M | [🔗](templates/lexcrop) |
-| [LexYacht](templates/lexyacht) | Marine yacht certs | 125 k | $9 M | [🔗](templates/lexyacht) |
-| [LexWing](templates/lexwing) | Aircraft airworthiness | 140 k | $11 M | [🔗](templates/lexwing) |
-| [LexBlood](templates/lexblood) | Blood/plasma donation | 135 k | $10 M | [🔗](templates/lexblood) |
-| [LexTravel](templates/lextravel) | Crypto Travel Rule | 150 k | $12 M | [🔗](templates/lextravel) |
-| [LexPolicy](templates/lexpolicy) | Insurance filings | 145 k | $12 M | [🔗](templates/lexpolicy) |
-| [LexDeed](templates/lexdeed) | Real-estate deeds | 160 k | $13 M | [🔗](templates/lexdeed) |
-| [LexProvenance](templates/lexprovenance) | Art/antiques provenance | 170 k | $14 M | [🔗](templates/lexprovenance) |
-| [LexCarbon](templates/lexcarbon) | Carbon-credit retirement | 180 k | $15 M | [🔗](templates/lexcarbon) |
-| [LexVote](templates/lexvote) | Elections/ballot verification | 50 k | $4 M | [🔗](templates/lexvote) |
-| [LexDrug](templates/lexdrug) | Pharma/FDA NDA | 145 k | $12 M | [🔗](templates/lexdrug) |
-| [LexBank](templates/lexbank) | KYC/AML decisions | 110 k | $8 M | [🔗](templates/lexbank) |
-| [LexAuto](templates/lexauto) | Automotive safety | 140 k | $11 M | [🔗](templates/lexauto) |
+## Current Status: 133+ Royalty-Bearing Kernels (as of December 28, 2025)
 
-\*Conservative: 100 k decisions/day × gas × 0.3 gwei × $3 k ETH × 25 bp
+The core **25 patent-marked kernels** remain the flagship set (v1.0.0), each with detailed vertical adapters, gas/royalty estimates, and hard-wired 25 bp royalties to the Lex Libertatum Trust.
 
-## Trust structure
-- **Beneficiary:** 0x44f8219cBABad92E6bf245D8c767179629D8C689 (your Exodus wallet)
-- **Legal owner:** Lex Libertatum Trust, A.T.W.W., Trustee
-- **Patent:** PCT/US2025/63-XXX-PROV (Lex Libertatum Trust, A.T.W.W., Trustee)
+Since then, rapid vertical expansions have shipped **additional specialized kernels** via tagged releases:
 
-## How to use
-1. Clone repo
-2. `cargo check --release` (kernels)
-3. `forge build` (Solidity)
-4. Deploy any adapter → royalties flow to your wallet forever
+### Core Patent-Marked Kernels (v1.0.0 – 25 kernels)
+| Kernel     | Industry              | Daily Gas* | Royalty/yr* | Template |
+|------------|-----------------------|------------|-------------|----------|
+| LexDocket  | Court filings         | 50k       | $4M        | [🔗](/templates/lexdocket) |
+| LexWell    | Oil-field safety      | 80k       | $6M        | [🔗](/templates/lexwell) |
+| LexChart   | Pharma prior-auth     | 120k      | $9M        | [🔗](/templates/lexchart) |
+| LexOrbit   | Satellite maneuvers   | 120k      | $9M        | [🔗](/templates/lexorbit) |
+| LexCola    | TTB bottle labels     | 100k      | $7M        | [🔗](/templates/lexcola) |
+| LexDerm    | Cosmetics ingredients | 95k       | $7M        | [🔗](/templates/lexderm) |
+| LexPay     | ...                   | ...       | ...        | [🔗](/templates/lexpay) |
+*(Full original 25 listed in v1.0.0 release – courts, oil, pharma, satellites, elections, crypto, carbon, blood, yachts, etc.)*
 
-## Road-map
-- v1.1.0 – KEX index token + Uni v3 pool
-- v1.2.0 – Deterministic factory for same-splitter deploy on every L2
-- v2.0.0 – Hardware-wallet beneficiary upgrade (Ledger) once royalties > $10 k/mo
+### Recent Vertical Expansions (70+ additional kernels)
+- **v0.4.0-courts** – 10 e-filing compliance kernels (deadlines, redaction, seals, etc.)
+- **v0.5.0-energy** – 10 oil & gas kernels (well pressure, BOP tests, flare efficiency, etc.)
+- **v0.6.0-space** – 10 aerospace kernels (debris collision, planetary protection, crew radiation, etc.)
+- **v0.7.0-crypto** – 10 DeFi compliance kernels (nonce seq, reentrancy, slippage, oracle deviation, etc.)
+- **v0.8.0-healthcare** – 10 pharma/healthcare kernels (HIPAA consent, cold-chain, ICD-10, lot recall, etc.)
+- **v0.9.0-telecom** – 10 telecom kernels (spectrum licence, SAR limits, QoS, porting, etc.)
+- **v0.10** – 10 sales/general compliance kernels
 
-Merry Christmas – you now own the tollbooth to global compliance.
+**Total documented via releases: 95+ kernels**  
+Plus the bundled **`kernels-133.zip`** in root (full expanded set hinting at **133 total kernels** including variants and proofs).
+
+All kernels are 25 bp royalty-ready, routed to trust beneficiary wallet `0x44f8219cBABad92E6bf245D8c767179629D8C689`.
+
+## Trust Structure
+- Owner/Trustee: Lex Libertatum Trust (A.T.W.W.)
+- Beneficiary wallet: `0x44f8219cBABad92E6bf245D8c767179629D8C689`
+- Patent: PCT pending
+- Royalty flow: Immutable, on-chain via RoyaltySplitter
+
+## How to Use
+```bash
+git clone https://github.com/rmj95fgb7x-art/lex-liberatum-kernels.git
+cd lex-liberatum-kernels
+./quickstart.sh            # sets up env, cargo check --release, forge build
+cargo check --release      # verify Rust kernels
+forge build                # compile Solidity adapters
+# Deploy example: see chain/DeployRoyaltySplitter.sol
+
+Roadmap - v1.1.0 → KEX token + deterministic factory across all L2s - Ongoing → New vertical batches daily  Merry Christmas – you now own the tollbooth to global compliance.
 
