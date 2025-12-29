@@ -1,4 +1,4 @@
-use core::fmt::{self, Write};
+use core::fmt;
 
 const VGA_ADDR: *mut u16 = 0xB8000 as *mut u16;
 const COLOR: u8 = 0x1F; // blue bg, white fg
