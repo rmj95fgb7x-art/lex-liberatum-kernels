@@ -34,7 +34,7 @@ protected_mode:
 
     // jump to Rust _start at 1 MiB
     mov     $0x100000, %eax
-    jmp     %eax
+    jmp     *%eax
 
 // GDT
 gdt:
