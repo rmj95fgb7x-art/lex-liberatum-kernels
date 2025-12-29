@@ -38,5 +38,5 @@ jobs:
         run: |
           timeout --kill-after=5s 3s \
           qemu-system-x86_64 -drive format=raw,file=target/x86_64-unknown-none/release/kernel.bin,readonly \
-          -nographic -serial stdio || [ $? -eq 124 ]   # 124 = timeout OK
+          -nographic  || [ $? -eq 124 ]   # 124 = timeout OK
 
