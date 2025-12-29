@@ -2,23 +2,25 @@
 #![no_main]
 
 mod vga;
+mod serial;
 use core::panic::PanicInfo;
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
+    serial::init();
     vga::clear();
-    vga::print_str("lex-kernel v0.1.0\n");
-    vga::print_str("Multiboot2 entry OK\n");
-    vga::print_str("VGA driver online\n");
-    vga::print_str("Lines 1-3 printed; now scrolling…\n");
-    // force a scroll
-    for i in 0..22 {
-        vga::print_str("Line ");
-        let digit: [u8; 1] = [b'0' + i as u8];
-        vga::print_str(core::str::from_utf8(&digit).unwrap());
-        vga::print_str("\n");
+    let lines = [
+        "lex-kernel v0.1.0\n",
+        "Multiboot2 entry OK\n",
+        "Serial 8250 UART online\n",
+        "VGA driver online\n",
+        "Now echoing to both VGA + serial …\n",
+        "Halted.\n",
+    ];
+    for &line in &lines {
+        vga::print_str(line);
+        serial::puts(line);   // also echo to host
     }
-    vga::print_str("Halted.\n");
     loop { unsafe { core::arch::asm!("hlt") } }
 }
 
@@ -26,11 +28,3 @@ pub extern "C" fn _start() -> ! {
 fn panic(_info: &PanicInfo) -> ! {
     loop {}
 }
-
-
-
-
-
-
-
-
