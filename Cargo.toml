@@ -8,3 +8,6 @@ panic = "abort"
 
 [profile.release]
 panic = "abort"
+[build-dependencies]
+cc = "1.0"
+
