@@ -35,12 +35,11 @@ jobs:
             target/x86_64-unknown-none/release/kernel.bin
       - name: Check kernel.bin exists
         run: ls -lh target/x86_64-unknown-none/release/kernel.bin
+      - name: Run in QEMU (expect triple-fault timeout)
+        run: timeout 3s qemu-system-x86_64 -fda target/x86_64-unknown-none/release/kernel.bin -nographic || [ $? -eq 124 ]
 
-         - name:Run in QEMU (expect triple-fault timeout)  
-          run:|
-          timeout --kill-after=5s 3s \
-          qemu-system-x86_64 -fda target/x86_64-unknown-none/release/kernel.bin \
-          -nographic || [ $? -eq 124 ]
+
+        
 
 
 
