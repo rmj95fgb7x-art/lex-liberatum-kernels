@@ -27,7 +27,7 @@ jobs:
         run: cargo build --release -Z build-std=core,compiler_builtins --target src/arch/x86_64/x86_64-unknown-none.json
       - name: Strip ELF → raw kernel image
         run: |
-          rust-objcopy -O binary \
+          llvm-objcopy -O binary \
             target/x86_64-unknown-none/release/lex-kernel \
             target/x86_64-unknown-none/release/kernel.bin
 
