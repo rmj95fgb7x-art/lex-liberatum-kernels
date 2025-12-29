@@ -1,18 +1,23 @@
 #![no_std]
 #![no_main]
 
+mod vga;
 use core::panic::PanicInfo;
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    const VGA: *mut u16 = 0xB8000 as *mut u16;
-    const COLOR: u16 = 0x1F; // blue bg, white fg
-    let msg = b"lex-kernel v0.1.0 booted!";
-    unsafe {
-        for (i, &ch) in msg.iter().enumerate() {
-            *VGA.add(i) = COLOR << 8 | u16::from(ch);
-        }
+    vga::clear();
+    vga::print_str("lex-kernel v0.1.0\n");
+    vga::print_str("Multiboot2 entry OK\n");
+    vga::print_str("VGA driver online\n");
+    vga::print_str("Lines 1-3 printed; now scrolling…\n");
+    // force a scroll
+    for i in 0..22 {
+        vga::print_str("Line ");
+        vga::print_str(i as u8 + b'0'); // cheap digit
+        vga::print_str("\n");
     }
+    vga::print_str("Halted.\n");
     loop { unsafe { core::arch::asm!("hlt") } }
 }
 
@@ -20,6 +25,9 @@ pub extern "C" fn _start() -> ! {
 fn panic(_info: &PanicInfo) -> ! {
     loop {}
 }
+
+
+
 
 
 
