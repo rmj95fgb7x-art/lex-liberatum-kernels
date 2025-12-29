@@ -14,7 +14,8 @@ pub extern "C" fn _start() -> ! {
     // force a scroll
     for i in 0..22 {
         vga::print_str("Line ");
-        vga::print_str(i as u8 + b'0'); // cheap digit
+        let digit: [u8; 1] = [b'0' + i as u8];
+        vga::print_str(core::str::from_utf8(&digit).unwrap());
         vga::print_str("\n");
     }
     vga::print_str("Halted.\n");
@@ -25,6 +26,7 @@ pub extern "C" fn _start() -> ! {
 fn panic(_info: &PanicInfo) -> ! {
     loop {}
 }
+
 
 
 
