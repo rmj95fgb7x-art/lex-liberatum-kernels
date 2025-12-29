@@ -33,6 +33,8 @@ jobs:
           llvm-objcopy -O binary \
             target/x86_64-unknown-none/release/lex-kernel \
             target/x86_64-unknown-none/release/kernel.bin
+      - name: Check kernel.bin exists
+        run: ls -lh target/x86_64-unknown-none/release/kernel.bin
 
       - name: Run in QEMU (no boot-loop test)
         run: |
