@@ -37,6 +37,6 @@ jobs:
       - name: Run in QEMU (no boot-loop test)
         run: |
           timeout --kill-after=5s 3s \
-          qemu-system-x86_64 -drive format=raw,file=target/x86_64-unknown-none/release/kernel.bin,readonly \
+          qemu-system-x86_64 -drive format=raw,file=target/x86_64-unknown-none/release/kernel.bin,readonly=on\
           -nographic  || [ $? -eq 124 ]   # 124 = timeout OK
 
