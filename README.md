@@ -55,4 +55,18 @@ forge build                # compile Solidity adapters
 # Deploy example: see chain/DeployRoyaltySplitter.sol
 
 Roadmap - v1.1.0 → KEX token + deterministic factory across all L2s - Ongoing → New vertical batches daily  Merry Christmas – you now own the tollbooth to global compliance.
+cat > LEX_LIBERATUM_WHITE_PAPER.md << 'EOF'
+# Lex Liberatum: A Deterministic Spectral Royalty Engine for On-Chain Regulatory Compliance
+
+**Authors:** Tawhio A. Watene, Independent Researcher and Trustee, Lex Libertatum Trust  
+**Date:** 30 December 2025
+
+## Abstract
+Lex Liberatum introduces a kernel architecture that fuses fixed-point FFT signal processing with Georgia-Pacific-derived royalty accrual to produce 25 bp compliance royalties denominated in wei. The system is implementable in < 150 lines of `no_std` Rust, is court-reproducible, and scales to 133+ royalty-bearing kernels under an irrevocable trust.
+
+## 1. Introduction
+… (full paper body continues exactly as you supplied) …
+
+EOF
+
 
