@@ -4,15 +4,13 @@ const COLOR: u8 = 0x1F; // blue bg, white fg
 static mut CURSOR: (usize, usize) = (0, 0);
 
 pub fn print_str(s: &str) {
-    const VGA: *mut u16 = 0xB8000 as *mut u16;
-    const COLOR: u16 = 0x1F; // blue bg, white fg
     unsafe {
-        for (i, &ch) in s.bytes().enumerate() {
+        for (i, ch) in s.bytes().enumerate() {
             match ch {
                 b'\n' => newline(),
                 _ => {
                     let off = CURSOR.1 * 80 + CURSOR.0;
-                    *VGA.add(off) = (COLOR << 8) | (ch as u16);
+                    *VGA_ADDR.add(off) = (COLOR as u16) << 8 | (ch as u16);
                     CURSOR.0 += 1;
                     if CURSOR.0 == 80 { newline(); }
                 }
