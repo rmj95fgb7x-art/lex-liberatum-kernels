@@ -3,7 +3,7 @@ title: 'Lex Liberatum: A Deterministic Spectral Royalty Engine for On-Chain Regu
 author: A.T.W.W.  
       Independent Researcher and Trustee  
       Lex Libertatum Trust  
-date: 31 December 2025 - v1.1
+date: 30 December 2025 - v1.1
 abstract: |
   Lex Liberatum introduces a pioneering kernel architecture that integrates Fast Fourier Transform (FFT) signal processing with established industrial royalty accrual models to facilitate deterministic extraction of regulatory compliance insights from blockchain transaction data. This system, implementable in fewer than 150 lines of no_std Rust code, analyzes block-windowed compliance signals to generate 25 basis-point royalties denominated in wei, secured through an irrevocable private trust structure. The paper elucidates the core mathematical equations, demonstrates implementation details, proves key properties such as determinism and Hermitian symmetry preservation, and outlines the economic flywheel mechanism. With patents pending and a genesis date of December 29, 2023, this framework bridges traditional equitable practices with decentralized finance (DeFi), offering scalable, auditable governance for 133+ royalty-bearing kernels.
 ---
