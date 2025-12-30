@@ -32,7 +32,7 @@ jobs:
         run: clang -m16 -c src/arch/x86_64/bootsector.S -o target/x86_64-unknown-none/release/bootsector.o
 
       - name: Link boot sector flat binary
-        run: ld -m elf_i386 -Ttext 0x7C00 --oformat binary target/x86_64-unknown-none/release/bootsector.o -o target/x86_64-unknown-none/release/bootsector.bin
+        run: objcopy -O binary target/x86_64-unknown-none/release/bootsector.o target/x86_64-unknown-none/release/bootsector.bin
 
       - name: Stitch floppy image
         run: |
