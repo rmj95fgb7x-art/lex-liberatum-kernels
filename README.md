@@ -58,7 +58,7 @@ Roadmap - v1.1.0 → KEX token + deterministic factory across all L2s - Ongoing 
 cat > LEX_LIBERATUM_WHITE_PAPER.md << 'EOF'
 # Lex Liberatum: A Deterministic Spectral Royalty Engine for On-Chain Regulatory Compliance
 
-**Authors:** Tawhio A. Watene, Independent Researcher and Trustee, Lex Libertatum Trust  
+**Authors:** A.T.W.W., Independent Researcher and Trustee, Lex Libertatum Trust  
 **Date:** 30 December 2025
 
 ## Abstract
