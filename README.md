@@ -68,5 +68,6 @@ Lex Liberatum introduces a kernel architecture that fuses fixed-point FFT signal
 … (full paper body continues exactly as you supplied) …
 
 EOF
+🔥 Submit proof & claim the $500 USDC here → https://github.com/rmj95fgb7x-art/lex-liberatum-kernels/issues/1
 
 
