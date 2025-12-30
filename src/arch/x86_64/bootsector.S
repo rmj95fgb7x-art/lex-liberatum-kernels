@@ -46,6 +46,5 @@ gdtdesc:
     .long gdt
 gdtend:
 
-// boot signature
 .org 510
 .word 0xAA55
