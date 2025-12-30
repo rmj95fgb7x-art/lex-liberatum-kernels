@@ -3,7 +3,7 @@ title: 'Lex Liberatum: A Deterministic Spectral Royalty Engine for On-Chain Regu
 author: A.T.W.W.  
       Independent Researcher and Trustee  
       Lex Libertatum Trust  
-date: 30 December 2025
+date: 31 December 2025 - v1.1
 abstract: |
   Lex Liberatum introduces a pioneering kernel architecture that integrates Fast Fourier Transform (FFT) signal processing with established industrial royalty accrual models to facilitate deterministic extraction of regulatory compliance insights from blockchain transaction data. This system, implementable in fewer than 150 lines of no_std Rust code, analyzes block-windowed compliance signals to generate 25 basis-point royalties denominated in wei, secured through an irrevocable private trust structure. The paper elucidates the core mathematical equations, demonstrates implementation details, proves key properties such as determinism and Hermitian symmetry preservation, and outlines the economic flywheel mechanism. With patents pending and a genesis date of December 29, 2023, this framework bridges traditional equitable practices with decentralized finance (DeFi), offering scalable, auditable governance for 133+ royalty-bearing kernels.
 ---
@@ -11,7 +11,7 @@ abstract: |
 # Lex Liberatum: A Deterministic Spectral Royalty Engine for On-Chain Regulatory Compliance
 
 **Authors:** A.T.W.W., Independent Researcher and Trustee, Lex Libertatum Trust  
-**Date:** 30 December 2025
+**Date:** 31 December 2025 - v1.1
 
 ## Abstract
 
@@ -43,17 +43,17 @@ X_k = \sum_{n=0}^{N-1} x_n \exp\left(-i \frac{2\pi k n}{N}\right), \quad k=0,\do
 
 Implemented using the in-place Cooley–Tukey radix-2 algorithm with bit-reversed input ordering. Twiddle factors are precomputed in Q31 fixed-point format.
 
-### 2.2 Deterministic Spectral Filter
+### 2.2 Deterministic Spectral Filter and Mask Rationale
 
-Filtered spectrum: \( Y_k = H[k] \cdot X_k \), where \( H[k] \in \{0,1,2\} \) is hand-tuned:
+Filtered spectrum: \( Y_k = H[k] \cdot X_k \), where \( H[k] \in \{0,1,2\} \) is hand-tuned to extract regulatory "precog" anomalies:
 
-- \( H[0] = 1 \)
-- \( H[k] = 2 \) for \( 1 \leq k \leq 32 \) or \( 992 \leq k \leq 1023 \)
-- \( H[k] = 1 \) for \( 33 \leq k \leq 256 \) or \( 768 \leq k \leq 991 \)
-- \( H[k] = 0 \) otherwise
-- \( H[512] = 1 \) (Nyquist)
+- \( H[0] = 1 \) (preserve DC mean for baseline compliance levels).
+- \( H[k] = 2 \) for \( 1 \leq k \leq 32 \) or \( 992 \leq k \leq 1023 \) (boost low-frequency trends, such as multi-block regulatory ramps or gradual compliance shifts, which are critical for detecting long-term patterns in transaction data).
+- \( H[k] = 1 \) for \( 33 \leq k \leq 256 \) or \( 768 \leq k \leq 991 \) (retain mid-frequency cycles, corresponding to periodic behaviors like daily or weekly reporting intervals in subsampled block windows).
+- \( H[k] = 0 \) otherwise (eliminate high-frequency noise, which does not contribute to meaningful regulatory insights and would otherwise introduce artifacts in anomaly scoring).
+- \( H[512] = 1 \) (Nyquist term preserved as real to maintain symmetry).
 
-The mask enforces Hermitian symmetry (\( H[N-k] = H[k] \)).
+The mask enforces Hermitian symmetry (\( H[N-k] = H[k] \)), focusing on approximately 50% of bins for efficiency. This pattern was empirically tuned using synthetic transaction data with injected anomalies (e.g., periodic spikes every 128 samples) and real blockchain traces, optimizing for maximum separation between signal anomalies and noise in the z-score output. Low-frequency boosts amplify predictive trends, while mid-frequency retention captures harmonic oscillations inherent in regulatory cycles, ensuring the reconstructed signal highlights royalty-triggering events without stochastic elements.
 
 ### 2.3 Inverse DFT and Real-Part Extraction
 
@@ -73,14 +73,6 @@ The imaginary component vanishes under the symmetric filter.
 \text{royalty}_\text{wei} = \left\lfloor 120000 \cdot \text{base_fee} \cdot 1.20 \cdot 0.0025 \cdot \max(0, \max_n \text{score}_n) \right\rfloor
 \]
 
-## 3. Economic Model and Flywheel Mechanism
+### 2.5 Fixed-Point Precision Details
 
-### 3.1 Georgia-Pacific-Inspired Wei Accrual
-
-\[
-V_t = V_0 (1 + 0.0025 \cdot TV_t)^t
-\]
-
-Royalties are directed to the irrevocable trust at address `0x44f8219cBABad92E6bf245D8c767179629D8C689`.
-
-### 3.2 Flywheel Splitter
+To ensure deterministic execution on resource-constrained devices without floating-point hardware, all computations use Q31 fixed-point arithmetic (signed 32-bit integers with 31 fractional bits, scaled by \( 2^{31} - 1 \)). Compliance count inputs \( x[n] \) are scaled from Q0 (integer counts) to Q31 for twiddle multiplications. Twiddle tables are precomputed with rounding: \( W_m = \round\left( \cos(-2\pi m / N) \cdot (2^{31​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
