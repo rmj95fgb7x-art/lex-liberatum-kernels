@@ -1,3 +1,22 @@
+## 🏆 First On-Chain Royalty Flow – Bounty Claimed
+
+On 31 Dec 2025 the **$500 USDC bounty** for the first *verified* 0.25 % royalty transfer on Base Sepolia was successfully claimed.
+
+**Winner’s proof**  
+Kernel used: `LexOrbit-ITU`  
+RoyaltySplitter: [`0xBD781aE7a9795fE33BC572052804E526033f1B16`](https://sepolia.basescan.org/address/0xBD781aE7a9795fE33BC572052804E526033f1B16)  
+Kernel: [`0x3b8F9a019e5a7B7AF215fA75C388E6f76364abc9`](https://sepolia.basescan.org/address/0x3b8F9a019e5a7B7AF215fA75C388E6f76364abc9)  
+Transaction: [`0xbae1c3867f2804b14a2c20189c6eb2f134ec4b104c0c3d934ed1312871b20634`](https://sepolia.basescan.org/tx/0xbae1c3867f2804b14a2c20189c6eb2f134ec4b104c0c3d934ed1312871b20634)  
+
+*The royalty flow is live—on-chain, immutable, and verified.*
+![Bounty Winner](https://img.shields.io/badge/Bounty-Claimed%20%24500%20USDC-success?style=flat-square&logo=ethereum)
+
+Value routed: `0.0003 ETH`  
+Exact royalty: `0.00000075 ETH` (25 bp)  
+Beneficiary: `0x1a4C4d943aa165924f1b8BC975A44B8e6938AA45`
+
+Event log (raw):
+
 # lex-liberatum-kernels
 
 **Patent-pending, royalty-bearing compliance decision kernels.**  
