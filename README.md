@@ -144,9 +144,9 @@ LexCrypto	DeFi Oracle	0.000075	$0.22	$1k
 
 
 ```bash
-cargo check --release --package lexorbit
-# FFT denoising → frequency analysis → compliance decision
-```
+# 30-second start
+git clone https://github.com/rmj95fgb7x-art/lex-liberatum-kernels.git
+cd lex-liberatum-kernels && ./quickstart.sh
 
 ### LexChart (Pharma Prior-Auth) ✅ Working
 
