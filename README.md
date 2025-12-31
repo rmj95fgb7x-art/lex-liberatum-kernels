@@ -1,8 +1,9 @@
+![First On-Chain Royalty Flow](https://img.shields.io/badge/Bounty-Winner%20%24500%20USDC-brightgreen)
+
 # lex-liberatum-kernels
 
 **Patent-pending, royalty-bearing compliance decision kernels.**  
 25 basis points of every application fee → irrevocable trust. Deterministic deployment via CREATE2 across all L2s.
-![First On-Chain Royalty Flow](https://img.shields.io/badge/Bounty-Winner%20%24500%20USDC-brightgreen)
 
 
 -----
