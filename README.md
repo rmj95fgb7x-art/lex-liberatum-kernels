@@ -11,7 +11,7 @@ Automated compliance decision-making kernels that route 25bp (0.25%) royalties t
 
 **Current Status:**
 
-- ✅ **3 working kernels**: LexOrbit (satellites), LexChart (pharma), LexDocket (courts)
+- ✅ **25 working kernels**: LexOrbit (satellites), LexChart (pharma), LexDocket (courts) and more
 - 📦 **130+ templates**: Ready for vertical adaptation in `kernels-133.zip`
 - 🧪 **Base Sepolia testnet**: RoyaltySplitter contract deployment in progress
 - 💰 **Realistic projections**: $200k-600k/year royalties across 10 verticals at moderate adoption
