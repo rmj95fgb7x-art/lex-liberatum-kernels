@@ -141,6 +141,33 @@ Kernel	Industry	Fee (ETH)	≈ USD	25 bp Royalty/yr*
 LexOrbit	Satellite	0.0003	$0.90	$3k
 … (full 25 rows) …				
 LexCrypto	DeFi Oracle	0.000075	$0.22	$1k
+Kernel	Industry	Fee (ETH)	≈ USD	25 bp Royalty/yr*
+LexOrbit	Satellite	0.0003	$0.90	$3k
+LexNFT	Generative Art	0.0005	$1.50	$5k
+LexGrid	Grid Frequency	0.0002	$0.60	$2k
+LexESG	Carbon	0.0006	$1.80	$6k
+LexShip	Ballast Water	0.0004	$1.20	$4k
+LexWell	Oil Safety	0.0003	$0.90	$3k
+LexChart	Pharma	0.0006	$1.80	$6k
+LexDocket	Court Filings	0.0003	$0.90	$3k
+LexSAR	Satellite SAR	0.0003	$0.90	$3k
+LexQoS	Telecom QoS	0.0002	$0.60	$2k
+LexPort	Number Porting	0.0002	$0.60	$2k
+LexCold	Pharma Cold-Chain	0.0003	$0.90	$3k
+LexICD	ICD-10 Coding	0.0002	$0.60	$2k
+LexLot	Lot Recall	0.0003	$0.90	$3k
+LexH2S	H₂S Exposure	0.0003	$0.90	$3k
+LexFlare	Flare Efficiency	0.0003	$0.90	$3k
+LexBOP	BOP Pressure	0.0003	$0.90	$3k
+LexCola	TTB Labels	0.0003	$0.90	$3k
+LexDerm	Cosmetics	0.0003	$0.90	$3k
+LexPay	PCI/AML	0.0002	$0.60	$2k
+LexCarbon	Carbon Credits	0.0003	$0.90	$3k
+LexBlood	Blood Cold-Chain	0.0003	$0.90	$3k
+LexYacht	Yacht Charter	0.0002	$0.60	$2k
+LexElection	Ballot Integrity	0.0003	$0.90	$3k
+LexCrypto	DeFi Oracle	0.000075	$0.22	$1k
+
 
 
 ```bash
