@@ -132,14 +132,16 @@ Log result on-chain or via oracle
 
 -----
 
-## 🚀 Current Kernels
+## 📦 What You Get Right Now
 
-### LexOrbit (Satellite Telemetry) ✅ Working
+- **25 working kernels** (see table below) – fully-coded, royalty-ready Solidity contracts  
+- **108 template stubs** in `kernels-133.zip` – parameterised shells ready for vertical adaptation  
+- **$1 500 bounty** for deploying the RoyaltySplitter to Base Sepolia ([Issue #1](../../issues/1))
+Kernel	Industry	Fee (ETH)	≈ USD	25 bp Royalty/yr*
+LexOrbit	Satellite	0.0003	$0.90	$3k
+… (full 25 rows) …				
+LexCrypto	DeFi Oracle	0.000075	$0.22	$1k
 
-**Purpose:** FFT-based anomaly detection in satellite OFDM signals  
-**Status:** Fully implemented, 147 lines Rust  
-**Compliance:** FCC Part 25, ITU Radio Regulations  
-**Use case:** Orbital debris avoidance, spectrum interference detection
 
 ```bash
 cargo check --release --package lexorbit
