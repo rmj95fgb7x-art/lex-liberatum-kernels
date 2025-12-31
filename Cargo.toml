@@ -1,4 +1,15 @@
 [package]
+name = "royalty-splitter"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+ethers = { version = "5.0", features = ["full"] }
+foundry-cli = "0.1"
+dotenv = "0.15"
+
+[dev-dependencies]
+fuzzytest = "0.3"[package]
 name = "lex-kernel"
 version = "0.1.0"
 edition = "2021"

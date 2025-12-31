@@ -1,4 +1,30 @@
-// SPDX-License-Identifier: Patent-Pending
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract RoyaltySplitter {
+    address public artist;
+    address public owner;
+    uint256 public royaltyFee;
+
+    constructor(address _artist, address _owner, uint256 _royaltyFee) {
+        artist = _artist;
+        owner = _owner;
+        royaltyFee = _royaltyFee;
+    }
+
+    function splitRoyalties(uint256 amount) public payable {
+        require(msg.value == amount, "Incorrect payment amount");
+        uint256 artistShare = (amount * royaltyFee) / 100;
+        uint256 ownerShare = amount - artistShare;
+        payable(artist).transfer(artistShare);
+        payable(owner).transfer(ownerShare);
+    }
+
+    function updateRoyaltyFee(uint256 _royaltyFee) public {
+        require(msg.sender == owner, "Only the owner can update the royalty fee");
+        royaltyFee = _royaltyFee;
+    }
+}// SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
 /// @title RoyaltySplitter
