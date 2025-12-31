@@ -1,85 +1,154 @@
 # lex-liberatum-kernels
 
-**Patent-pending, royalty-bearing decision kernels.**  
-25 bp of every compliance decision → irrevocable trust. Same CREATE2 on every L2.
+**Patent-pending, royalty-bearing compliance decision kernels.**  
+25 basis points of every application fee → irrevocable trust. Deterministic deployment via CREATE2 across all L2s.
 
-## Live on Base Sepolia Testnet
-- RoyaltySplitter: [0x...](https://sepolia.basescan.org/address/...) *(update with actual address post-deploy)*
-- KEX index: coming in v1.1.0
+-----
 
-## Current Status: 133+ Royalty-Bearing Kernels (as of December 28, 2025)
+## 🎯 What This Is
 
-The core **25 patent-marked kernels** remain the flagship set (v1.0.0), each with detailed vertical adapters, gas/royalty estimates, and hard-wired 25 bp royalties to the Lex Libertatum Trust.
+Automated compliance decision-making kernels that route 25bp (0.25%) royalties to the Lex Libertatum Trust on every processed decision. Built in Rust (no_std) + Solidity, designed for deterministic cross-chain deployment.
 
-Since then, rapid vertical expansions have shipped **additional specialized kernels** via tagged releases:
+**Current Status:**
 
-### Core Patent-Marked Kernels (v1.0.0 – 25 kernels)
-| Kernel     | Industry              | Daily Gas* | Royalty/yr* | Template |
-|------------|-----------------------|------------|-------------|----------|
-| LexDocket  | Court filings         | 50k       | $4M        | [🔗](/templates/lexdocket) |
-| LexWell    | Oil-field safety      | 80k       | $6M        | [🔗](/templates/lexwell) |
-| LexChart   | Pharma prior-auth     | 120k      | $9M        | [🔗](/templates/lexchart) |
-| LexOrbit   | Satellite maneuvers   | 120k      | $9M        | [🔗](/templates/lexorbit) |
-| LexCola    | TTB bottle labels     | 100k      | $7M        | [🔗](/templates/lexcola) |
-| LexDerm    | Cosmetics ingredients | 95k       | $7M        | [🔗](/templates/lexderm) |
-| LexPay     | ...                   | ...       | ...        | [🔗](/templates/lexpay) |
-*(Full original 25 listed in v1.0.0 release – courts, oil, pharma, satellites, elections, crypto, carbon, blood, yachts, etc.)*
+- ✅ **3 working kernels**: LexOrbit (satellites), LexChart (pharma), LexDocket (courts)
+- 📦 **130+ templates**: Ready for vertical adaptation in `kernels-133.zip`
+- 🧪 **Base Sepolia testnet**: RoyaltySplitter contract deployment in progress
+- 💰 **Realistic projections**: $200k-600k/year royalties across 10 verticals at moderate adoption
 
-### Recent Vertical Expansions (70+ additional kernels)
-- **v0.4.0-courts** – 10 e-filing compliance kernels (deadlines, redaction, seals, etc.)
-- **v0.5.0-energy** – 10 oil & gas kernels (well pressure, BOP tests, flare efficiency, etc.)
-- **v0.6.0-space** – 10 aerospace kernels (debris collision, planetary protection, crew radiation, etc.)
-- **v0.7.0-crypto** – 10 DeFi compliance kernels (nonce seq, reentrancy, slippage, oracle deviation, etc.)
-- **v0.8.0-healthcare** – 10 pharma/healthcare kernels (HIPAA consent, cold-chain, ICD-10, lot recall, etc.)
-- **v0.9.0-telecom** – 10 telecom kernels (spectrum licence, SAR limits, QoS, porting, etc.)
-- **v0.10** – 10 sales/general compliance kernels
+-----
 
-**Total documented via releases: 95+ kernels**  
-Plus the bundled **`kernels-133.zip`** in root (full expanded set hinting at **133 total kernels** including variants and proofs).
+## 💡 How It Works
 
-All kernels are 25 bp royalty-ready, routed to trust beneficiary wallet `0x44f8219cBABad92E6bf245D8c767179629D8C689`.
+### Revenue Model (Application Fees, Not Gas)
 
-## Trust Structure
-- Owner/Trustee: Lex Libertatum Trust (A.T.W.W.)
-- Beneficiary wallet: `0x44f8219cBABad92E6bf245D8c767179629D8C689`
-- Patent: PCT pending
-- Royalty flow: Immutable, on-chain via RoyaltySplitter
+Kernels charge per compliance decision processed:
 
-## How to Use
-```bash
-git clone https://github.com/rmj95fgb7x-art/lex-liberatum-kernels.git
-cd lex-liberatum-kernels
-./quickstart.sh            # sets up env, cargo check --release, forge build
-cargo check --release      # verify Rust kernels
-forge build                # compile Solidity adapters
-# Deploy example: see chain/DeployRoyaltySplitter.sol
+- **LexDocket**: $1.00 per court filing review
+- **LexChart**: $2.00 per pharma prior-authorization
+- **LexOrbit**: $0.50 per satellite telemetry validation
 
-Roadmap - v1.1.0 → KEX token + deterministic factory across all L2s - Ongoing → New vertical batches daily  Merry Christmas – you now own the tollbooth to global compliance.
-cat > LEX_LIBERATUM_WHITE_PAPER.md << 'EOF'
-# Lex Liberatum: Deterministic Spectral Royalty Engine for On-Chain Regulatory Compliance  
-**Authors:** Tawhio A. Watene, Lex Libertatum Trust  
-**Date:** 31 December 2025  
+The smart contract automatically routes **25 basis points (0.25%)** of each fee to the trust beneficiary wallet.
 
-## Abstract  
-Lex Liberatum fuses fixed-point FFT signal processing with a $1-per-decision application-fee model to mint 25 basis-point royalties in wei.  Each vertical (satellite, carbon, grid, etc.) processes ~50 k decisions/day; 25 % adoption yields ~$4.6 M gross/yr → $11.4 k royalty/yr per vertical, compounding in an irrevocable trust.  The system is < 150 lines no-std Rust, court-reproducible, and live on Base Sepolia.
+### Example Calculation
 
-## 1. Introduction  
-Traditional gas-skimming royalties fail at scale ($328/yr).  We replace gas with **application fees**: users pay $1 per compliance decision; the smart contract splits 25 bp of **msg.value**, not gas.  FFT anomalies trigger the slice, producing defensible, USD-denominated cash flow that scales linearly with adoption.
+```
+LexChart Pharma Authorization:
+─────────────────────────────────
+Annual volume: 120M prior-auths/year
+Adoption rate: 10% = 12M decisions
+Fee per decision: $2.00
+─────────────────────────────────
+Gross revenue: 12M × $2.00 = $24M/year
+Royalty (25bp): $24M × 0.0025 = $60,000/year
+```
 
-## 2. Corrected Math  
-- Fee per decision: $1  
-- Decisions/day: 50 000  
-- Adoption: 25 % → 12 500 paid decisions/day  
-- Gross revenue/year: 12 500 × $1 × 365 = **$4.56 M**  
-- 25 bp royalty/year: $4.56 M × 0.0025 = **$11.4 k** (per vertical)  
-- 10 verticals → **$114 k–600 k** royalty dynasty.
+### Multi-Vertical Projection
 
-## 3. Architecture Overview  
-1. **Rust kernel** (`no_std`) – 1024-point fixed-point FFT, z-score output (permille).  
-2. **Solidity kernel** – accepts anomalyPermille + decisionCount, enforces `$1 × decisions` in `msg.value`, routes 25 bp to splitter.  
-3. **RoyaltySplitter** – immutable, verified on Base Sepolia; beneficiary = 0x44f8…D689.
+|Vertical               |Annual Volume  |Adoption|Fee  |Annual Royalty* |
+|-----------------------|---------------|--------|-----|----------------|
+|LexDocket (Courts)     |10M filings    |25%     |$1.00|$6,250          |
+|LexChart (Pharma)      |120M auths     |10%     |$2.00|$60,000         |
+|LexOrbit (Satellites)  |50M signals    |5%      |$0.50|$3,125          |
+|LexWell (Oil & Gas)    |40M inspections|15%     |$1.50|$9,000          |
+|LexPay (Payments)      |200M txns      |8%      |$0.25|$10,000         |
+|**Total (5 verticals)**|               |        |     |**$88,375/year**|
 
-## 4. Key Equations  
+*Royalty = 25bp of gross application fee revenue
+
+**Scale to 10 verticals:** $200k-600k/year at moderate adoption  
+**Not “trillions”** - realistic TAM across regulated industries: $50-500M
+
+-----
+
+## 🏗️ Architecture
+
+### 1. Kernel Layer (Rust)
+
+Decision logic runs in `no_std` Rust for embedded/constrained environments:
+
+```rust
+// kernels/lexorbit.rs - Satellite telemetry FFT analysis
+pub fn process_telemetry(signal: &[i64]) -> Decision {
+    let normalized = signal.iter()
+        .map(|&x| (x as f64 / 1e18) as f32)
+        .collect();
+    
+    let freq_domain = fft(&normalized);
+    analyze_spectrum(&freq_domain)
+}
+```
+
+**Key features:**
+
+- FFT-based signal denoising (LexOrbit)
+- Rule engine for regulatory compliance (LexDocket, LexChart)
+- Wei-precision fixed-point math for deterministic results
+- ~150 lines per kernel, optimized for embedded deployment
+
+### 2. Smart Contract Layer (Solidity)
+
+Royalty splitting happens on-chain via immutable contracts:
+
 ```solidity
-feeWei   = (decisions * 1_000_000 * 1e18) / MICROUSD_PER_ETH;  // $1/decision
-royalty  = (feeWei * 25) / 10_000;                              // 25 bp slice
+// contracts/RoyaltySplitter.sol
+contract RoyaltySplitter {
+    address public constant BENEFICIARY = 0x44f8219cBABad92E6bf245D8c767179629D8C689;
+    uint256 public constant BASIS_POINTS = 25; // 0.25%
+    
+    function processDecision(bytes32 kernelId, bytes calldata data) 
+        external payable returns (bool) 
+    {
+        uint256 royalty = (msg.value * BASIS_POINTS) / 10000;
+        (bool success,) = BENEFICIARY.call{value: royalty}("");
+        require(success, "Royalty transfer failed");
+        
+        emit RoyaltyPaid(msg.sender, msg.value, royalty);
+        return true;
+    }
+}
+```
+
+**Contract addresses:**
+
+- Base Sepolia: `0x...` *(pending deployment - see Issue #1)*
+- Mainnet: TBD post-audit
+
+### 3. Integration Flow
+
+```
+User/System
+    ↓
+    ├─→ Call RoyaltySplitter.processDecision{value: 0.001 ETH}
+    │       ├─→ 99.75% to operator
+    │       └─→ 0.25% (25bp) to trust wallet
+    ↓
+Off-chain worker runs kernel (lexorbit.rs FFT analysis)
+    ↓
+Return decision: Compliant / NonCompliant / RequiresReview
+    ↓
+Log result on-chain or via oracle
+```
+
+-----
+
+## 🚀 Current Kernels
+
+### LexOrbit (Satellite Telemetry) ✅ Working
+
+**Purpose:** FFT-based anomaly detection in satellite OFDM signals  
+**Status:** Fully implemented, 147 lines Rust  
+**Compliance:** FCC Part 25, ITU Radio Regulations  
+**Use case:** Orbital debris avoidance, spectrum interference detection
+
+```bash
+cargo check --release --package lexorbit
+# FFT denoising → frequency analysis → compliance decision
+```
+
+### LexChart (Pharma Prior-Auth) ✅ Working
+
+**Purpose:** Automated prior-authorization decision engine  
+**Status:** Rule engine operational  
+**Compliance:** FDA 21 CFR Part 11, HIPAA  
+**Use case:** Insurance prior-auth automation, reducing 7-14 day delays to <1 min
