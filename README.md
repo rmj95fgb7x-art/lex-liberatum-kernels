@@ -1,5 +1,3 @@
-![First On-Chain Royalty Flow](https://img.shields.io/badge/Bounty-Winner%20%24500%20USDC-brightgreen)
-
 # lex-liberatum-kernels
 
 **Patent-pending, royalty-bearing compliance decision kernels.**  
