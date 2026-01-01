@@ -31,7 +31,7 @@ Automated compliance decision-making kernels that route 25bp (0.25%) royalties t
 
 **Current Status:**
 
-- ✅ **25 working kernels**: LexOrbit (satellites), LexChart (pharma), LexDocket (courts) and more
+- ✅ **60+ working kernels**: LexOrbit (satellites), LexChart (pharma), LexDocket (courts) and more
 - 📦 **130+ templates**: Ready for vertical adaptation in `kernels-133.zip`
 - 🧪 **Base Sepolia testnet**: RoyaltySplitter contract deployment in progress
 - 💰 **Realistic projections**: $200k-600k/year royalties across 10 verticals at moderate adoption
@@ -154,9 +154,9 @@ Log result on-chain or via oracle
 
 ## 📦 What You Get Right Now
 
-- **25 working kernels** (see table below) – fully-coded, royalty-ready Solidity contracts  
+- **60+ working kernels** (see table below) – fully-coded, royalty-ready Solidity contracts  
 - **108 template stubs** in `kernels-133.zip` – parameterised shells ready for vertical adaptation  
-- **$1 500 bounty** for deploying the RoyaltySplitter to Base Sepolia ([Issue #1](../../issues/1))
+- ** for deploying the RoyaltySplitter to Base Sepolia ([Issue #1](../../issues/1))
 Kernel	Industry	Fee (ETH)	≈ USD	25 bp Royalty/yr*
 LexOrbit	Satellite	0.0003	$0.90	$3k
 … (full 25 rows) …				
