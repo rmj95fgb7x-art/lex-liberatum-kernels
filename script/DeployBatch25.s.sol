@@ -2,7 +2,7 @@
 pragma solidity ^0.8.25;
 
 import "forge-std/Script.sol";
-import "../src/KernelFactory.sol";
+import "../contracts/KernelFactory.sol";
 
 // Import all 25 working kernels
 import "../kernels/LexOrbit.sol";
@@ -39,27 +39,47 @@ contract DeployBatch25 is Script {
         KernelFactory factory = KernelFactory(vm.envAddress("FACTORY_ADDRESS"));
 
         string[25] memory names = [
-            "LexOrbit-ITU","LexNFT-GenerativeArt","LexGrid-Frequency","LexESG-Carbon","LexShip-Ballast",
-            "LexWell-OilSafety","LexChart-Pharma","LexDocket-Courts","LexSAR-Satellite","LexQoS-Telecom",
-            "LexPort-Number","LexCold-Pharma","LexICD-Coding","LexLot-Recall","LexH2S-OilGas",
-            "LexFlare-OilGas","LexBOP-OilGas","LexCola-TTB","LexDerm-Cosmetics","LexPay-PCI-AML",
-            "LexCarbon-Credits","LexBlood-ColdChain","LexYacht-Charter","LexElection-Ballot","LexCrypto-Oracle"
+            "LexOrbit-ITU",
+            "LexNFT-GenerativeArt",
+            "LexGrid-Frequency",
+            "LexESG-Carbon",
+            "LexShip-Ballast",
+            "LexWell-OilSafety",
+            "LexChart-Pharma",
+            "LexDocket-Courts",
+            "LexSAR-Satellite",
+            "LexQoS-Telecom",
+            "LexPort-Number",
+            "LexCold-Pharma",
+            "LexICD-Coding",
+            "LexLot-Recall",
+            "LexH2S-OilGas",
+            "LexFlare-OilGas",
+            "LexBOP-OilGas",
+            "LexCola-TTB",
+            "LexDerm-Cosmetics",
+            "LexPay-PCI-AML",
+            "LexCarbon-Credits",
+            "LexBlood-ColdChain",
+            "LexYacht-Charter",
+            "LexElection-Ballot",
+            "LexCrypto-Oracle"
         ];
 
         for (uint i = 0; i < 25; ++i) {
             address kernel;
             bytes32 salt = keccak256(abi.encodePacked(names[i], "-v1.0.1"));
 
-            if (i == 0)  kernel = address(new LexOrbit(BENEFICIARY));
-            if (i == 1)  kernel = address(new LexNFT(BENEFICIARY));
-            if (i == 2)  kernel = address(new LexGrid(BENEFICIARY));
-            if (i == 3)  kernel = address(new LexESG(BENEFICIARY));
-            if (i == 4)  kernel = address(new LexShip(BENEFICIARY));
-            if (i == 5)  kernel = address(new LexWell(BENEFICIARY));
-            if (i == 6)  kernel = address(new LexChart(BENEFICIARY));
-            if (i == 7)  kernel = address(new LexDocket(BENEFICIARY));
-            if (i == 8)  kernel = address(new LexSAR(BENEFICIARY));
-            if (i == 9)  kernel = address(new LexQoS(BENEFICIARY));
+            if (i == 0) kernel = address(new LexOrbit(BENEFICIARY));
+            if (i == 1) kernel = address(new LexNFT(BENEFICIARY));
+            if (i == 2) kernel = address(new LexGrid(BENEFICIARY));
+            if (i == 3) kernel = address(new LexESG(BENEFICIARY));
+            if (i == 4) kernel = address(new LexShip(BENEFICIARY));
+            if (i == 5) kernel = address(new LexWell(BENEFICIARY));
+            if (i == 6) kernel = address(new LexChart(BENEFICIARY));
+            if (i == 7) kernel = address(new LexDocket(BENEFICIARY));
+            if (i == 8) kernel = address(new LexSAR(BENEFICIARY));
+            if (i == 9) kernel = address(new LexQoS(BENEFICIARY));
             if (i == 10) kernel = address(new LexPort(BENEFICIARY));
             if (i == 11) kernel = address(new LexCold(BENEFICIARY));
             if (i == 12) kernel = address(new LexICD(BENEFICIARY));
