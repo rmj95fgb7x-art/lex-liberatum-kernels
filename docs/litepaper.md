@@ -510,6 +510,41 @@ $$
 **For Pilot Partnerships**: [See repository README]
 
 -----
+                          ╔══════════════════════════════════╗
+                          ║          Irrevocable Trust       ║
+                          ║     (Beneficiary Wallet)         ║
+                          ║   Receives 0.25% (25 bp) forever ║
+                          ╚════════════════════╤═════════════╝
+                                               ↑
+                                               │ 25 bp royalty stream
+                                               │ (automatic, on-chain)
+                                               │
+  ┌────────────────────────────────────────────────────────────────────┐
+  │                    RoyaltySplitter.sol (CREATE2)                    │
+  │               Same deterministic address on EVERY L2                │
+  │                                                                    │
+  │   processDecision{value: fee}                                      │
+  │         │                                                          │
+  │         ├──► 99.75% → Operator / Builder                           │
+  │         └──►  0.25% → Trust (unstoppable)                          │
+  └────────────────────────────────────┬───────────────────────────────┘
+                                               │
+                                               ▼
+  ┌────────────────────────────────────────────────────────────────────┐
+  │                  Off-Chain Decision Kernels                        │
+  │                     (no_std Rust)                                  │
+  │                                                                    │
+  │  • LexChart → Pharma prior-auth (seconds vs weeks)                  │
+  │  • LexOrbit → Satellite FFT signal analysis                        │
+  │  • LexDocket → Court filings & compliance                          │
+  │  • 60+ production kernels | 130+ templates ready                    │
+  │                                                                    │
+  │  Input → Deterministic logic → Decision (Compliant / Review / Deny)│
+  └────────────────────────────────────────────────────────────────────┘
+
+                          User / System / App
+                               initiates
+                          fee-bearing decision
 
 *Version 1.0 - January 2026*  
 *Patent Pending: PCT Application*
