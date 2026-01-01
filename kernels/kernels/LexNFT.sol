@@ -1,35 +1,39 @@
-// SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
-
+import "../src/AdaptiveKernelBase.sol";
 import "../src/RoyaltySplitter.sol";
 
-/// @title LexNFT
-/// @notice 25 bp royalty on pixel-diff similarity of generative-art mints.
-///         Call `checkRemix(...)` with Hamming-distance ratio; royalty splits if > 5 % match.
-contract LexNFT is RoyaltySplitter {
-    uint256 public constant MATCH_THRESHOLD_PER_MILLE = 50; // 5 %
+contract LexNFT is RoyaltySplitter, AdaptiveKernelBase {
     uint256 public constant GAS_PER_CALL = 95_000;
 
     constructor(address _beneficiary) RoyaltySplitter(_beneficiary) {}
 
-    /// @param hashNew   Keccak-256 of new artwork pixels
-    /// @param hashOld   Keccak-256 of prior artwork being compared
-    /// @param matchPermille  Pre-computed similarity 0–1000 (‰)
-    function checkRemix(
-        bytes32 hashNew,
-        bytes32 hashOld,
-        uint256 matchPermille
-    ) external payable {
+    function checkNFT(uint256[] memory hashDiffs) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 120 * 25 / 1_000_000; // 1.20 multiplier
+        uint256 royaltyWei = gasUsed * baseFee * 95 * 25 / 1_000_000; // 0.95 multiplier
 
-        if (matchPermille > MATCH_THRESHOLD_PER_MILLE) {
+        uint256[] memory distances = new uint256[](hashDiffs.length);
+        uint256[] memory sorted = new uint256[](hashDiffs.length);
+        for (uint256 i = 0; i < hashDiffs.length; i++) sorted[i] = hashDiffs[i];
+        uint256 median = sorted[sorted.length / 2];
+        for (uint256 i = 0; i < hashDiffs.length; i++) {
+            int256 diff = int256(hashDiffs[i]) - int256(median);
+            distances[i] = diff < 0 ? uint256(-diff) : uint256(diff);
+        }
+
+        uint256[] memory weights = adaptiveWeights(distances);
+        uint256 sum = 0;
+        for (uint256 i = 0; i < hashDiffs.length; i++) {
+            sum += hashDiffs[i] * weights[i];
+        }
+        fused = sum / 10000;
+
+        if (fused > 5000) { // 50 % similarity threshold
             _splitRoyalty{value: royaltyWei}();
         }
     }
 
     function vertical() external pure returns (string memory) {
-        return "LexNFT-GenerativeArt";
+        return "LexNFT-Adaptive";
     }
 }
