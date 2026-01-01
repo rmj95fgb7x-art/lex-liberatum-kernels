@@ -1,8 +1,8 @@
 pragma solidity ^0.8.25;
-import "../src/AdaptiveKernelBase.sol";
+import "../src/FlagshipAdaptiveBase.sol";
 import "../src/RoyaltySplitter.sol";
 
-contract LexH2SMonitor is RoyaltySplitter, AdaptiveKernelBase {
+contract LexH2SMonitor is RoyaltySplitter, FlagshipAdaptiveBase {
     uint256 public constant MAX_H2S_PPM = 10; // ≤ 10 ppm TWA
     uint256 public constant GAS_PER_CALL= 95_000;
 
@@ -18,10 +18,10 @@ contract LexH2SMonitor is RoyaltySplitter, AdaptiveKernelBase {
         signals[0] = h2sPpm;
 
         uint256[] memory distances = new uint256[](1);
-        distances[0] = h2sPpm;
+        distances[0] = h2sPpm; // median = 0 for single value → distance = value
 
         uint256[] memory weights = adaptiveWeights(distances);
-        fused = signals[0] * weights[0] / 10000;
+        fused = signals[0] * weights[0] / 10000; // weight will be 1.0 for single signal
 
         if (h2sPpm > MAX_H2S_PPM) {
             _splitRoyalty{value: royaltyWei}();
