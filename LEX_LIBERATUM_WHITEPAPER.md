@@ -4,6 +4,18 @@
 
 ## Abstract  
 Lex Liberatum fuses fixed-point FFT signal processing with a $1-per-decision application-fee model to mint 25 basis-point royalties in wei.  Each vertical (satellite, carbon, grid, etc.) processes ~50 k decisions/day; 25 % adoption yields ~$4.6 M gross/yr → $11.4 k royalty/yr per vertical, compounding in an irrevocable trust.  The system is < 150 lines no-std Rust, court-reproducible, and live on Base Sepolia.
+## Canonical Lex Liberatum Model
+
+**Decision Transform:** \\(\hat{D}_i(f) = FFT(D_i(t))\\) per kernel i
+
+**Weighted Aggregation:** \\(K_w(f) = \sum_{i=1}^{60} w_i \cdot \hat{D}_i(f)\\)
+
+**Royalty Flow:** \\(R_i = N_i \times V_i \times 0.0025\\)
+
+**System Economics:** \\(R = \sum_{i=1}^{60} R_i = 7.5M\\) Year 1
+
+**Moran Example:** \\(N_{eye} = 120k\\), \\(V = 100\\) → \\(R_{eye} = 300k\\)
+
 
 ## 1. Introduction  
 Traditional gas-skimming royalties fail at scale ($328/yr).  We replace gas with **application fees**: users pay $1 per compliance decision; the smart contract splits 25 bp of **msg.value**, not gas.  FFT anomalies trigger the slice, producing defensible, USD-denominated cash flow that scales linearly with adoption.
