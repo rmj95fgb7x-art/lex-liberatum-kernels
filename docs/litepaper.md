@@ -545,6 +545,70 @@ $$
                           User / System / App
                                initiates
                           fee-bearing decision
+                                                       LEX LIBERATUM KERNEL FLOW
+                  Deterministic Compliance + Irrevocable 0.25% Royalty
+
+                             ┌─────────────────────┐
+                             │   Input Source      │
+                             │ (Regulated Data)    │
+                             │                     │
+                             │ • Pharma Prior-Auth │
+                             │ • Satellite Telemetry │
+                             │ • Court Docket      │
+                             │ • DeFi Position     │
+                             │ • AML Transaction   │
+                             └─────────┬───────────┘
+                                       │
+                                       ▼
+                             ┌─────────────────────┐
+                             │   Off-Chain Kernel  │
+                             │   (Rust no_std)     │
+                             │                     │
+                             │ kl-077 LexEye       │
+                             │ kl-039 AML Oracle   │
+                             │ kl-XXX Custom       │
+                             │                     │
+                             │ → Rule-based logic  │
+                             │ → FFT-wei math      │
+                             │ → Deterministic     │
+                             │   yes/no + proof    │
+                             └─────────┬───────────┘
+                                       │
+                                       ▼
+                             ┌─────────────────────┐
+                             │   On-Chain Submit   │
+                             │   (Solidity)        │
+                             │                     │
+                             │ LexSplitter.sol     │
+                             │ (Immutable, CREATE2)│
+                             │                     │
+                             │ 1. Pay fee (ETH/USDC) │
+                             │ 2. Submit decision  │
+                             │ 3. Contract enforces│
+                             └───────┬──────┬──────┘
+                                     │      │
+                     0.25% Royalty ──┘      └─ 99.75% to Operator/Recipient
+                                     │
+                                     ▼
+                     ┌──────────────────────────────────────┐
+                     │          Trust Wallet                │
+                     │ 0x44f8219cBABad92E6bf245D8c767179629D8C689 │
+                     │                                      │
+                     │ → Funds ongoing development          │
+                     │ → Self-sustaining public good        │
+                     │ → Irrevocable (immutable contract)   │
+                     └──────────────────────────────────────┘
+
+Key Advantages
+• Plug-and-play: ./quickstart.sh → live in minutes
+• Transparent: All decisions auditable on-chain
+• Neutral: No central operator control
+• Cost-saving: 25 bp << manual or vendor alternatives
+• Scalable: 60+ kernels, 130+ templates ready
+
+Base Sepolia Proof: 0xbae1c3867... (bounty claimed Dec 31, 2025)
+Next: Base Mainnet → Real regulatory pilots
+                        
 
 *Version 1.0 - January 2026*  
 *Patent Pending: PCT Application*
