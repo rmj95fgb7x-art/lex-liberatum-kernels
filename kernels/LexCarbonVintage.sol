@@ -1,8 +1,8 @@
 pragma solidity ^0.8.25;
-import "../src/AdaptiveKernelBase.sol";
+import "../src/FlagshipAdaptiveBase.sol";
 import "../src/RoyaltySplitter.sol";
 
-contract LexCarbonVintage is RoyaltySplitter, AdaptiveKernelBase {
+contract LexCarbonVintage is RoyaltySplitter, FlagshipAdaptiveBase {
     uint256 public constant MAX_VINTAGE_AGE_YEARS = 5; // ≤ 5 years old
     uint256 public constant GAS_PER_CALL          = 75_000;
 
