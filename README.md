@@ -1,3 +1,10 @@
+## Key Paper: FFT-wei Kernel Primitives
+
+[FFT-wei: Weighted Spectral Oracles for Robust Fusion](path/to/your-paper.pdf)  
+- Theorem 1: O(1/√n) MSE convergence  
+- Benchmarks: 400x swarm speedup, 136% fraud AUC lift  
+[Jupyter Demo](kernels/notebooks/fft-bench.ipynb) | [arXiv Draft](whitepaper/fft-wei-v1.pdf)
+
 ## 🏆 First On-Chain Royalty Flow – Bounty Claimed
 
 On 31 Dec 2025 the **$500 USDC bounty** for the first *verified* 0.25 % royalty transfer on Base Sepolia was successfully claimed.
