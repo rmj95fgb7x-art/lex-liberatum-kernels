@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexJurisdiction
 /// @notice 25 bp royalty on court jurisdiction compliance:
@@ -27,7 +27,7 @@ contract LexJurisdiction is RoyaltySplitter {
                          (subjectMatterOk);
 
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

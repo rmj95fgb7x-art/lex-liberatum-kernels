@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexESG
 /// @notice 25 bp royalty on CO₂ emissions exceeding site licence.
@@ -19,7 +19,7 @@ contract LexESG is RoyaltySplitter {
         uint256 royaltyWei = gasUsed * baseFee * 130 * 25 / 1_000_000; // 1.30 multiplier
 
         if (tonnesCO2 > CO2_LIMIT_TONNES) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

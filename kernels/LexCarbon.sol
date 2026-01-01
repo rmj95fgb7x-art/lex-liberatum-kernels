@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexCarbon
 /// @notice 25 bp royalty on carbon-credit compliance:
@@ -27,7 +27,7 @@ contract LexCarbon is RoyaltySplitter {
                          (mrvHash != bytes32(0)); // MRV bundle must exist
 
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

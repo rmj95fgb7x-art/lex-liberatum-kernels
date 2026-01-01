@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexNFT
 /// @notice 25 bp royalty on pixel-diff similarity of generative-art mints.
@@ -22,10 +22,10 @@ contract LexNFT is RoyaltySplitter {
     ) external payable {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 120 * 25 / 1_000_000; // 1.20 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 120 * 25) / 1_000_000; // 1.20 multiplier
 
         if (matchPermille > MATCH_THRESHOLD_PER_MILLE) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

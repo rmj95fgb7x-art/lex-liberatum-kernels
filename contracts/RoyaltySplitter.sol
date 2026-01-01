@@ -12,31 +12,31 @@ contract RoyaltySplitter {
     constructor(address _beneficiary) {
         beneficiary = _beneficiary;
         // ---- pricing map (editable by owner) ----
-        kernelFee["LexOrbit-ITU"]     = 0.0003 ether; // ~$1  (@ $3 k/ETH)
+        kernelFee["LexOrbit-ITU"] = 0.0003 ether; // ~$1  (@ $3 k/ETH)
         kernelFee["LexNFT-GenerativeArt"] = 0.0005 ether;
-        kernelFee["LexGrid-Frequency"]    = 0.0002 ether;
-        kernelFee["LexESG-Carbon"]        = 0.0006 ether;
-        kernelFee["LexShip-Ballast"]      = 0.0004 ether;
+        kernelFee["LexGrid-Frequency"] = 0.0002 ether;
+        kernelFee["LexESG-Carbon"] = 0.0006 ether;
+        kernelFee["LexShip-Ballast"] = 0.0004 ether;
     }
 
     /// @param vertical  Kernel vertical string (must be pre-registered)
     /// @param data      Encoded call (passed to kernel for view-call)
-    function processDecision(string calldata vertical, bytes calldata data)
-        external
-        payable
-    {
+    function processDecision(
+        string calldata vertical,
+        bytes calldata data
+    ) external payable {
         uint256 requiredFee = kernelFee[vertical];
         require(requiredFee > 0, "Splitter: unknown kernel");
         require(msg.value >= requiredFee, "Splitter: insufficient fee");
 
         uint256 royalty = (requiredFee * 25) / 10_000; // 25 bp slice
-        (bool ok,) = beneficiary.call{value: royalty}("");
+        (bool ok, ) = beneficiary.call{value: royalty}("");
         require(ok, "Splitter: transfer failed");
 
         // refund surplus (if any)
         uint256 surplus = msg.value - requiredFee;
         if (surplus > 0) {
-            (bool ok2,) = payable(msg.sender).call{value: surplus}("");
+            (bool ok2, ) = payable(msg.sender).call{value: surplus}("");
             require(ok2, "Splitter: surplus refund failed");
         }
 
@@ -47,5 +47,14 @@ contract RoyaltySplitter {
     function setKernelFee(string calldata vertical, uint256 feeWei) external {
         require(msg.sender == beneficiary, "Splitter: only beneficiary");
         kernelFee[vertical] = feeWei;
+    }
+
+    // Internal function to split royalty for kernels (called by kernels)
+    function _splitRoyalty(uint256 royaltyWei) internal {
+        if (royaltyWei > 0) {
+            (bool ok, ) = beneficiary.call{value: royaltyWei}("");
+            require(ok, "Splitter: transfer failed");
+            emit RoyaltySplit("Internal", royaltyWei, royaltyWei);
+        }
     }
 }

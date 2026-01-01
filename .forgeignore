@@ -1,0 +1,14 @@
+# Exclude Rust OS implementation from Foundry builds
+src/
+kex/
+oracle/
+orchestrator/
+target/
+
+# Exclude frontend
+dashboard/
+
+# Exclude specific files that might cause conflicts
+build.rs
+Cargo.toml
+Cargo.lock

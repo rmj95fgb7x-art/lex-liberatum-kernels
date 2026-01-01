@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexCrypto
 /// @notice 25 bp royalty on DeFi oracle-deviation compliance:
@@ -32,7 +32,7 @@ contract LexCrypto is RoyaltySplitter {
                          (sequencerUptimePermille >= MIN_UPTIME_PERCENT);
 
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

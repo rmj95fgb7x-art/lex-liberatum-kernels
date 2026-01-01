@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexWell
 /// @notice 25 bp royalty on well-safety anomalies: BOP pressure, flare efficiency, H₂S levels.
@@ -28,7 +28,7 @@ contract LexWell is RoyaltySplitter {
                        (h2sPpm > H2S_MAX_ppm);
 
         if (anomaly) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

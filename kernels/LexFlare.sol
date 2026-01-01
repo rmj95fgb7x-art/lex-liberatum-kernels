@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexFlare
 /// @notice 25 bp royalty on oil-field flare-efficiency compliance:
@@ -31,7 +31,7 @@ contract LexFlare is RoyaltySplitter {
                          (opacityPermille <= MAX_OPACITY_permille);
 
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

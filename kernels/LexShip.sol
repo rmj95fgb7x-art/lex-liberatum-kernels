@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexShip
 /// @notice 25 bp royalty on ballast-water D-2 standard violations.
@@ -16,10 +16,10 @@ contract LexShip is RoyaltySplitter {
     function checkBallast(uint256 organismsPerCubicM) external payable {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 115 * 25 / 1_000_000; // 1.15 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 115 * 25) / 1_000_000; // 1.15 multiplier
 
         if (organismsPerCubicM > ORG_LIMIT_per_m3) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

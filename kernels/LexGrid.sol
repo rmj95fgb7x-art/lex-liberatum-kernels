@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexGrid
 /// @notice 25 bp royalty on grid-frequency deviation from 60 Hz.
@@ -17,14 +17,14 @@ contract LexGrid is RoyaltySplitter {
     function checkFrequency(uint256 freqmHz) external payable {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 110 * 25 / 1_000_000; // 1.10 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 110 * 25) / 1_000_000; // 1.10 multiplier
 
-        uint256 deviation = freqmHz > NOMINAL_HZ * 1000 
-            ? freqmHz - NOMINAL_HZ * 1000 
+        uint256 deviation = freqmHz > NOMINAL_HZ * 1000
+            ? freqmHz - NOMINAL_HZ * 1000
             : NOMINAL_HZ * 1000 - freqmHz;
 
         if (deviation > DEV_THRESHOLD_MHZ) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

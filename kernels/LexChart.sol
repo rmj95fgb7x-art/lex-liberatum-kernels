@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexChart
 /// @notice 25 bp royalty on pharma prior-authorisation decisions.
@@ -24,7 +24,7 @@ contract LexChart is RoyaltySplitter {
         bool requiresAuth = requiresPriorAuth(icd10, dosageMg, costUSD);
 
         if (requiresAuth) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 
