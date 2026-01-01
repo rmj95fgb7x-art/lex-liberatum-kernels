@@ -1,17 +1,9 @@
-// SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
+import "../src/FlagshipAdaptiveBase.sol";
+import "../src/RoyaltySplitter.sol";
 
-import "src/RoyaltySplitter.sol";
-
-/// @title LexElection
-/// @notice 25 bp royalty on election-ballot compliance:
-///         chain-of-custody hash, signature match, timestamp validity, precinct match.
-contract LexElection is RoyaltySplitter {
-    // EAC VVSG 2.0 example thresholds
-    uint256 public constant MAX_CHAIN_GAP_SEC = 300;    // ≤ 5 min custody gap
-    uint256 public constant SIGNATURE_MATCH_THRESHOLD_PERMILLE = 850; // 85 % match
-    uint256 public constant MAX_TIMESTAMP_DRIFT_SEC = 60;  // ≤ 1 min drift
-    uint256 public constant GAS_PER_CALL        = 110_000;
+contract LexElection is RoyaltySplitter, FlagshipAdaptiveBase {
+    uint256 public constant GAS_PER_CALL = 110_000;
 
     constructor(address _beneficiary) RoyaltySplitter(_beneficiary) {}
 
@@ -24,22 +16,44 @@ contract LexElection is RoyaltySplitter {
         uint256 signatureMatchPermille,
         uint256 timestampDriftSec,
         bool precinctMatch
-    ) external payable {
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 110 * 25 / 1_000_000; // 1.10 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 110 * 25) / 1_000_000; // 1.10 multiplier
 
-        bool compliant = (custodyGapSec <= MAX_CHAIN_GAP_SEC) &&
-                         (signatureMatchPermille >= SIGNATURE_MATCH_THRESHOLD_PERMILLE) &&
-                         (timestampDriftSec <= MAX_TIMESTAMP_DRIFT_SEC) &&
-                         (precinctMatch);
+        uint256[] memory signals = new uint256[](4);
+        signals[0] = custodyGapSec;
+        signals[1] = signatureMatchPermille;
+        signals[2] = timestampDriftSec;
+        signals[3] = precinctMatch ? 1 : 0;
 
+        uint256[] memory distances = new uint256[](4);
+        uint256[] memory sorted = new uint256[](4);
+        for (uint256 i = 0; i < 4; i++) sorted[i] = signals[i];
+        // median of 4 → average of middle 2
+        uint256 median = (sorted[1] + sorted[2]) / 2;
+        for (uint256 i = 0; i < 4; i++) {
+            int256 diff = int256(signals[i]) - int256(median);
+            distances[i] = diff < 0 ? uint256(-diff) : uint256(diff);
+        }
+
+        uint256[] memory weights = adaptiveWeights(distances);
+        uint256 sum = 0;
+        for (uint256 i = 0; i < 4; i++) {
+            sum += signals[i] * weights[i];
+        }
+        fused = sum / 10000;
+
+        bool compliant = (custodyGapSec <= 300) &&
+            (signatureMatchPermille >= 850) &&
+            (timestampDriftSec <= 60) &&
+            (precinctMatch);
         if (!compliant) {
             _splitRoyalty(royaltyWei);
         }
     }
 
     function vertical() external pure returns (string memory) {
-        return "LexElection-Ballot";
+        return "LexElection-Adaptive";
     }
 }

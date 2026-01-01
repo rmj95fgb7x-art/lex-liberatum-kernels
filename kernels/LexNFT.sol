@@ -1,35 +1,36 @@
-// SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
+import "../src/FlagshipAdaptiveBase.sol";
+import "../src/RoyaltySplitter.sol";
 
-import "src/RoyaltySplitter.sol";
-
-/// @title LexNFT
-/// @notice 25 bp royalty on pixel-diff similarity of generative-art mints.
-///         Call `checkRemix(...)` with Hamming-distance ratio; royalty splits if > 5 % match.
-contract LexNFT is RoyaltySplitter {
-    uint256 public constant MATCH_THRESHOLD_PER_MILLE = 50; // 5 %
-    uint256 public constant GAS_PER_CALL = 95_000;
+contract LexGrid is RoyaltySplitter, FlagshipAdaptiveBase {
+    uint256 public constant GAS_PER_CALL = 85_000;
 
     constructor(address _beneficiary) RoyaltySplitter(_beneficiary) {}
 
-    /// @param hashNew   Keccak-256 of new artwork pixels
-    /// @param hashOld   Keccak-256 of prior artwork being compared
-    /// @param matchPermille  Pre-computed similarity 0–1000 (‰)
-    function checkRemix(
-        bytes32 hashNew,
-        bytes32 hashOld,
-        uint256 matchPermille
-    ) external payable {
+    /// @param freqmHz  Real-time frequency in milli-Hertz (e.g., 60000 = 60 Hz)
+    function checkGrid(
+        uint256 freqmHz
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = (gasUsed * baseFee * 120 * 25) / 1_000_000; // 1.20 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 85 * 25) / 1_000_000; // 0.85 multiplier
 
-        if (matchPermille > MATCH_THRESHOLD_PER_MILLE) {
-            _splitRoyalty(royaltyWei);
+        uint256[] memory signals = new uint256[](1);
+        signals[0] = freqmHz;
+
+        uint256[] memory distances = new uint256[](1);
+        distances[0] = freqmHz;
+
+        uint256[] memory weights = adaptiveWeights(distances);
+        fused = (signals[0] * weights[0]) / 10000;
+
+        if (freqmHz > 60060 || freqmHz < 59940) {
+            // ±100 mHz
+            _splitRoyalty{value: royaltyWei}();
         }
     }
 
     function vertical() external pure returns (string memory) {
-        return "LexNFT-GenerativeArt";
+        return "LexGrid-Adaptive";
     }
 }
