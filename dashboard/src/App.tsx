@@ -104,7 +104,7 @@ export default function App() {
             <Shield className="text-accent w-8 h-8" />
             LEX LIBERATUM <span className="text-accent underline">DASHBOARD</span>
           </h1>
-          <p className="text-white/40 text-[10px] mt-1 tracking-widest uppercase">DETERMINISTIC SPECTRAL ROYALTY ENGINE v1.0.2</p>
+          <p className="text-white/40 text-[10px] mt-1 tracking-widest uppercase">DETERMINISTIC SPECTRAL ROYALTY ENGINE</p>
         </motion.div>
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="glass px-4 py-2 flex items-center gap-3">
           <div className={`w-2 h-2 rounded-full animate-pulse shadow-[0_0_8px_#00f2ff] ${isLive ? 'bg-accent' : 'bg-red-500'}`} />

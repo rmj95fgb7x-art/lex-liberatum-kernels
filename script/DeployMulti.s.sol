@@ -21,11 +21,11 @@ contract DeployMulti is Script {
 
         vm.startBroadcast(deployerPrivateKey);
 
-        // 1. Deploy RoyaltySplitter
+        // Deploy RoyaltySplitter
         RoyaltySplitter splitter = new RoyaltySplitter(beneficiary);
         console.log("RoyaltySplitter deployed at:", address(splitter));
 
-        // 2. Deploy Kernels
+        // Deploy Kernels
         LexBOP bop = new LexBOP(beneficiary);
         LexPay pay = new LexPay(beneficiary);
         LexBlood blood = new LexBlood(beneficiary);
@@ -48,7 +48,8 @@ contract DeployMulti is Script {
         console.log("LexSeal:", address(seal));
         console.log("LexCarbon:", address(carbon));
 
-        // 3. Register Fees in Splitter
+        // Register Fees in Splitter
+        // Can only be called by the beneficiary
         splitter.setKernelFee("LexBOP-OilGas", 0.0003 ether);
         splitter.setKernelFee("LexPay-PCI-AML", 0.0002 ether);
         splitter.setKernelFee("LexBlood-ColdChain", 0.0004 ether);
@@ -59,8 +60,6 @@ contract DeployMulti is Script {
         splitter.setKernelFee("LexPort-Customs", 0.0003 ether);
         splitter.setKernelFee("LexSeal-Courts", 0.0002 ether);
         splitter.setKernelFee("LexCarbon-Monitor", 0.0006 ether);
-
-        console.log("Fees registered in Splitter.");
 
         vm.stopBroadcast();
 

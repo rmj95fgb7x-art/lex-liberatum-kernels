@@ -1,7 +1,18 @@
 {
-    "network": "none",
-    "splitter": "0x0000000000000000000000000000000000000000",
-    "kernels": {},
-    "lastProofTx": "",
-    "timestamp": "0"
+  "network": "base-sepolia",
+  "splitter": "0xfFabB83D78C70Af81e28c0478B4115BAb7bB182a",
+  "kernels": {
+    "LexBOP": "0xD587d340AD2E986D177E72DE6931E489CE09Dfb8",
+    "LexPay": "0xF447B85e0FAE202cC940Fd4c16B0e4c8c43A282d",
+    "LexBlood": "0xb9E8bAA68b592b59a3a72618B28003D80117e1e9",
+    "LexOrbit": "0xca4F3783019Aed3036d76B58aeE1B7B1cCA77546",
+    "LexESG": "0x2411Da1036B9735897CC6D82CBB94A058B369914",
+    "LexWell": "0x66afc31F39f12D0C4f826d73BA682FC867A1318A",
+    "LexYacht": "0x4Cea6530ffCE5A3Ad9dbB92E3fFEf6EFBCEf4c44",
+    "LexPort": "0x5ef89347065a04cc918ce4705fC5bDaa7661758A",
+    "LexSeal": "0x3AFBb7eC6F64cce47903Ff51f8B32C0258E7cfCE",
+    "LexCarbon": "0x7CE82cB08a070e3D5418e61A0faB42Cb81fC700a"
+  },
+  "lastProofTx": "0x65886fedaf752e15b5f484c0c64e39543d13c67465b9f4128f5d83391f470a1d",
+  "timestamp": "1767307446"
 }

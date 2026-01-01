@@ -25,4 +25,4 @@ dashboard/dist/
 .env.local
 .env.example.bak
 chain/.env
-
+.deploy.log
