@@ -26,5 +26,3 @@ dashboard/dist/
 .env.example.bak
 chain/.env
 
-# Workspace artifacts
-/Users/mac/.gemini/

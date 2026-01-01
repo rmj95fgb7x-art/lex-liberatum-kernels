@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0a0a0b;
+  --color-foreground: #ffffff;
+  --color-accent: #00f2ff;
+  --color-muted: #1a1a1e;
+}
+
+:root {
+  --accent: #00f2ff;
+  --bg: #0a0a0b;
+}
+
+body {
+  @apply bg-background text-foreground antialiased selection:bg-accent/30;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.glass {
+  @apply bg-muted/50 backdrop-blur-md border border-white/10 rounded-xl;
+}
+
+.glow {
+  box-shadow: 0 0 20px rgba(0, 242, 255, 0.15);
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom scrollbar for kernel list */
+.scrollbar-active-blue::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-active-blue::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.scrollbar-active-blue::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
+}
