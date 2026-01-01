@@ -1,8 +1,8 @@
 pragma solidity ^0.8.25;
-import "../src/AdaptiveKernelBase.sol";
+import "../src/FlagshipAdaptiveBase.sol";
 import "../src/RoyaltySplitter.sol";
 
-contract LexActuary is RoyaltySplitter, AdaptiveKernelBase {
+contract LexActuary is RoyaltySplitter, FlagshipAdaptiveBase {
     uint256 public constant MAX_TABLE_AGE_YEARS = 5; // ≤ 5 years old
     uint256 public constant GAS_PER_CALL        = 70_000;
 
