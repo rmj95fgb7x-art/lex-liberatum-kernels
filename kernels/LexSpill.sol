@@ -1,8 +1,8 @@
 pragma solidity ^0.8.25;
-import "../src/AdaptiveKernelBase.sol";
+import "../src/FlagshipAdaptiveBase.sol";
 import "../src/RoyaltySplitter.sol";
 
-contract LexSpill is RoyaltySplitter, AdaptiveKernelBase {
+contract LexSpill is RoyaltySplitter, FlagshipAdaptiveBase {
     uint256 public constant MAX_SPILL_LITRES = 100; // ≤ 100 L
     uint256 public constant GAS_PER_CALL     = 90_000;
 
