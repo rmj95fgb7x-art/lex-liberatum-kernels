@@ -4,6 +4,7 @@
 - Theorem 1: O(1/√n) MSE convergence  
 - Benchmarks: 400x swarm speedup, 136% fraud AUC lift  
 [Jupyter Demo](kernels/notebooks/fft-bench.ipynb) | [arXiv Draft](whitepaper/fft-wei-v1.pdf)
+`kernels/notebooks/fft-bench.ipynb`
 
 ## 🏆 First On-Chain Royalty Flow – Bounty Claimed
 
