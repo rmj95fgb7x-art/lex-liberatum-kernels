@@ -4,15 +4,17 @@ import "../src/RoyaltySplitter.sol";
 
 contract LexH2SMonitor is RoyaltySplitter, FlagshipAdaptiveBase {
     uint256 public constant MAX_H2S_PPM = 10; // ≤ 10 ppm TWA
-    uint256 public constant GAS_PER_CALL= 95_000;
+    uint256 public constant GAS_PER_CALL = 95_000;
 
     constructor(address _beneficiary) RoyaltySplitter(_beneficiary) {}
 
     /// @param h2sPpm  Current H₂S reading (ppm)
-    function checkH2SMonitor(uint256 h2sPpm) external payable returns (uint256 fused) {
+    function checkH2SMonitor(
+        uint256 h2sPpm
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 95 * 25 / 1_000_000; // 0.95 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 95 * 25) / 1_000_000; // 0.95 multiplier
 
         uint256[] memory signals = new uint256[](1);
         signals[0] = h2sPpm;
@@ -21,7 +23,7 @@ contract LexH2SMonitor is RoyaltySplitter, FlagshipAdaptiveBase {
         distances[0] = h2sPpm; // median = 0 for single value → distance = value
 
         uint256[] memory weights = adaptiveWeights(distances);
-        fused = signals[0] * weights[0] / 10000; // weight will be 1.0 for single signal
+        fused = (signals[0] * weights[0]) / 10000; // weight will be 1.0 for single signal
 
         if (h2sPpm > MAX_H2S_PPM) {
             _splitRoyalty{value: royaltyWei}();

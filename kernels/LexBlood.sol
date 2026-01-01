@@ -1,6 +1,7 @@
 pragma solidity ^0.8.25;
-import "../src/FlagshipAdaptiveBase.sol";
-import "../src/RoyaltySplitter.sol";
+
+import "src/RoyaltySplitter.sol";
+import "src/FlagshipAdaptiveBase.sol";
 
 contract LexBlood is RoyaltySplitter, FlagshipAdaptiveBase {
     uint256 public constant GAS_PER_CALL = 85_000;
@@ -10,10 +11,14 @@ contract LexBlood is RoyaltySplitter, FlagshipAdaptiveBase {
     /// @param maxTempC        Highest temperature recorded (°C)
     /// @param outOfRangeMin   Minutes outside 1-6 °C range
     /// @param sealIntact      True if transport seal is unbroken
-    function checkBlood(uint256 maxTempC, uint256 outOfRangeMin, bool sealIntact) external payable returns (uint256 fused) {
+    function checkBlood(
+        uint256 maxTempC,
+        uint256 outOfRangeMin,
+        bool sealIntact
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 85 * 25 / 1_000_000; // 0.85 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 85 * 25) / 1_000_000; // 0.85 multiplier
 
         uint256[] memory signals = new uint256[](3);
         signals[0] = maxTempC;
@@ -37,11 +42,11 @@ contract LexBlood is RoyaltySplitter, FlagshipAdaptiveBase {
         fused = sum / 10000;
 
         bool compliant = (maxTempC <= 6) &&
-                         (maxTempC >= 1) &&
-                         (outOfRangeMin <= 30) &&
-                         (sealIntact);
+            (maxTempC >= 1) &&
+            (outOfRangeMin <= 30) &&
+            (sealIntact);
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

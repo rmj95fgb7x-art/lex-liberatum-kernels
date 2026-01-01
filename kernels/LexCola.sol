@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexCola
 /// @notice 25 bp royalty on TTB (Alcohol & Tobacco Tax and Trade Bureau) bottle-label compliance:
@@ -29,7 +29,7 @@ contract LexCola is RoyaltySplitter {
                          (labelSizeCm2 >= LABEL_SIZE_MIN_cm2);
 
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

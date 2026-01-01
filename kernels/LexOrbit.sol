@@ -8,10 +8,12 @@ contract LexOrbit is RoyaltySplitter, FlagshipAdaptiveBase {
     constructor(address _beneficiary) RoyaltySplitter(_beneficiary) {}
 
     /// @param signals  Array of telemetry signals (length 512, scaled ×100)
-    function checkOrbit(uint256[] memory signals) external payable returns (uint256 fused) {
+    function checkOrbit(
+        uint256[] memory signals
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 120 * 25 / 1_000_000; // 1.20 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 120 * 25) / 1_000_000; // 1.20 multiplier
 
         // signals length must be 512 (power-of-two for FFT)
         require(signals.length == 512, "LexOrbit: signals length != 512");

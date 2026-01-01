@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexSAR
 /// @notice 25 bp royalty on satellite SAR (Specific Absorption Rate) limit compliance.
@@ -22,7 +22,7 @@ contract LexSAR is RoyaltySplitter {
 
         if (measuredSAR_mWkg > SAR_LIMIT_mW_per_kg) {
             // anomaly detected → enforce royalty
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

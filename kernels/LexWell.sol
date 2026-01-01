@@ -1,6 +1,11 @@
 pragma solidity ^0.8.25;
+<<<<<<< HEAD
+
+import "src/RoyaltySplitter.sol";
+=======
 import "../src/FlagshipAdaptiveBase.sol";
 import "../src/RoyaltySplitter.sol";
+>>>>>>> main
 
 contract LexWell is RoyaltySplitter, FlagshipAdaptiveBase {
     uint256 public constant GAS_PER_CALL = 80_000;
@@ -20,6 +25,10 @@ contract LexWell is RoyaltySplitter, FlagshipAdaptiveBase {
         signals[1] = h2sPpm;
         signals[2] = flareEff;
 
+<<<<<<< HEAD
+        if (anomaly) {
+            _splitRoyalty(royaltyWei);
+=======
         uint256[] memory distances = new uint256[](3);
         uint256[] memory sorted = new uint256[](3);
         for (uint256 i = 0; i < 3; i++) sorted[i] = signals[i];
@@ -41,6 +50,7 @@ contract LexWell is RoyaltySplitter, FlagshipAdaptiveBase {
                          (flareEff >= 98);
         if (!compliant) {
             _splitRoyalty{value: royaltyWei}();
+>>>>>>> main
         }
     }
 

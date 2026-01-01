@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexPort
 /// @notice 25 bp royalty on telecom number-porting compliance:
@@ -35,7 +35,7 @@ contract LexPort is RoyaltySplitter {
                          (spamScore <= MAX_SPAM_SCORE);
 
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

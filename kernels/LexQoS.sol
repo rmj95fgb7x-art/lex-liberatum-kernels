@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexQoS
 /// @notice 25 bp royalty on telecom QoS compliance:
@@ -31,7 +31,7 @@ contract LexQoS is RoyaltySplitter {
                          (uptimePermille >= MIN_UPTIME_permille);
 
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

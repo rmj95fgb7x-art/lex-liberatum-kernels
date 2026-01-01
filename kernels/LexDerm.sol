@@ -10,10 +10,14 @@ contract LexDerm is RoyaltySplitter, FlagshipAdaptiveBase {
     /// @param ingredientHash  Keccak-256 of primary INCI name
     /// @param claimLength     Length of cosmetic claim text
     /// @param hasAllergens    True if contains known allergens
-    function checkDerm(bytes32 ingredientHash, uint256 claimLength, bool hasAllergens) external payable returns (uint256 fused) {
+    function checkDerm(
+        bytes32 ingredientHash,
+        uint256 claimLength,
+        bool hasAllergens
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 95 * 25 / 1_000_000; // 0.95 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 95 * 25) / 1_000_000; // 0.95 multiplier
 
         uint256[] memory signals = new uint256[](3);
         signals[0] = uint256(ingredientHash);
@@ -37,11 +41,11 @@ contract LexDerm is RoyaltySplitter, FlagshipAdaptiveBase {
         fused = sum / 10000;
 
         bool compliant = (ingredientHash != keccak256("Hydroquinone")) &&
-                         (ingredientHash != keccak256("Mercury")) &&
-                         (claimLength <= 200) &&
-                         (hasAllergens == true); // must declare allergens
+            (ingredientHash != keccak256("Mercury")) &&
+            (claimLength <= 200) &&
+            (hasAllergens == true); // must declare allergens
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

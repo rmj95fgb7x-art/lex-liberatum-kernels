@@ -10,10 +10,14 @@ contract LexCrypto is RoyaltySplitter, FlagshipAdaptiveBase {
     /// @param priceDeltaPermille  Absolute price delta from oracle (permille)
     /// @param secondsSinceUpdate  Seconds since last oracle update
     /// @param sequencerUptimePermille Sequencer uptime over window (0–1000)
-    function checkCrypto(uint256 priceDeltaPermille, uint256 secondsSinceUpdate, uint256 sequencerUptimePermille) external payable returns (uint256 fused) {
+    function checkCrypto(
+        uint256 priceDeltaPermille,
+        uint256 secondsSinceUpdate,
+        uint256 sequencerUptimePermille
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 75 * 25 / 1_000_000; // 0.75 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 75 * 25) / 1_000_000; // 0.75 multiplier
 
         uint256[] memory signals = new uint256[](3);
         signals[0] = priceDeltaPermille;
@@ -37,10 +41,10 @@ contract LexCrypto is RoyaltySplitter, FlagshipAdaptiveBase {
         fused = sum / 10000;
 
         bool compliant = (priceDeltaPermille <= 50) &&
-                         (secondsSinceUpdate <= 120) &&
-                         (sequencerUptimePermille >= 990);
+            (secondsSinceUpdate <= 120) &&
+            (sequencerUptimePermille >= 990);
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

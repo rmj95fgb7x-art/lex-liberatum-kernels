@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexBOP
 /// @notice 25 bp royalty on oil-field BOP (Blowout Preventer) pressure-test compliance:
@@ -30,7 +30,7 @@ contract LexBOP is RoyaltySplitter {
                          (sealHash != bytes32(0));
 
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

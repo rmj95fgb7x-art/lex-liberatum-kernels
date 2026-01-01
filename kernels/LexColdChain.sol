@@ -10,10 +10,14 @@ contract LexCola is RoyaltySplitter, FlagshipAdaptiveBase {
     /// @param abvPercent       Alcohol by volume (×100, e.g., 5.0 % → 50)
     /// @param hasWarning       True if Surgeon-General warning present
     /// @param labelSizeCm2     Front-label area (cm²)
-    function checkCola(uint256 abvPercent, bool hasWarning, uint256 labelSizeCm2) external payable returns (uint256 fused) {
+    function checkCola(
+        uint256 abvPercent,
+        bool hasWarning,
+        uint256 labelSizeCm2
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 100 * 25 / 1_000_000; // 1.00 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 100 * 25) / 1_000_000; // 1.00 multiplier
 
         uint256[] memory signals = new uint256[](3);
         signals[0] = abvPercent;
@@ -36,7 +40,10 @@ contract LexCola is RoyaltySplitter, FlagshipAdaptiveBase {
         }
         fused = sum / 10000;
 
-        bool compliant = (abvPercent >= 40) && (abvPercent <= 700) && (hasWarning) && (labelSizeCm2 >= 25);
+        bool compliant = (abvPercent >= 40) &&
+            (abvPercent <= 700) &&
+            (hasWarning) &&
+            (labelSizeCm2 >= 25);
         if (!compliant) {
             _splitRoyalty{value: royaltyWei}();
         }

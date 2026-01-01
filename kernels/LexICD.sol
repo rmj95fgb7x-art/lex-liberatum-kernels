@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexICD
 /// @notice 25 bp royalty on ICD-10 diagnosis-code compliance:
@@ -28,7 +28,7 @@ contract LexICD is RoyaltySplitter {
                          _isNumeric(icd10[2]);
 
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

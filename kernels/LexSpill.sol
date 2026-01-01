@@ -4,15 +4,17 @@ import "../src/RoyaltySplitter.sol";
 
 contract LexSpill is RoyaltySplitter, FlagshipAdaptiveBase {
     uint256 public constant MAX_SPILL_LITRES = 100; // ≤ 100 L
-    uint256 public constant GAS_PER_CALL     = 90_000;
+    uint256 public constant GAS_PER_CALL = 90_000;
 
     constructor(address _beneficiary) RoyaltySplitter(_beneficiary) {}
 
     /// @param spillLitres  Spill volume (litres)
-    function checkSpill(uint256 spillLitres) external payable returns (uint256 fused) {
+    function checkSpill(
+        uint256 spillLitres
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 90 * 25 / 1_000_000; // 0.90 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 90 * 25) / 1_000_000; // 0.90 multiplier
 
         uint256[] memory signals = new uint256[](1);
         signals[0] = spillLitres;
@@ -21,7 +23,7 @@ contract LexSpill is RoyaltySplitter, FlagshipAdaptiveBase {
         distances[0] = spillLitres;
 
         uint256[] memory weights = adaptiveWeights(distances);
-        fused = signals[0] * weights[0] / 10000;
+        fused = (signals[0] * weights[0]) / 10000;
 
         if (spillLitres > MAX_SPILL_LITRES) {
             _splitRoyalty{value: royaltyWei}();

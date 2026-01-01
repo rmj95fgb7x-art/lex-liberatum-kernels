@@ -9,10 +9,12 @@ contract LexWellPressure is RoyaltySplitter, FlagshipAdaptiveBase {
     constructor(address _beneficiary) RoyaltySplitter(_beneficiary) {}
 
     /// @param pressurePsi  Current well pressure (psi)
-    function checkWellPressure(uint256 pressurePsi) external payable returns (uint256 fused) {
+    function checkWellPressure(
+        uint256 pressurePsi
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 85 * 25 / 1_000_000; // 0.85 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 85 * 25) / 1_000_000; // 0.85 multiplier
 
         uint256[] memory signals = new uint256[](1);
         signals[0] = pressurePsi;
@@ -21,7 +23,7 @@ contract LexWellPressure is RoyaltySplitter, FlagshipAdaptiveBase {
         distances[0] = pressurePsi; // median = 0 for single value → distance = value
 
         uint256[] memory weights = adaptiveWeights(distances);
-        fused = signals[0] * weights[0] / 10000; // weight will be 1.0 for single signal
+        fused = (signals[0] * weights[0]) / 10000; // weight will be 1.0 for single signal
 
         if (pressurePsi > 20000) {
             _splitRoyalty{value: royaltyWei}();

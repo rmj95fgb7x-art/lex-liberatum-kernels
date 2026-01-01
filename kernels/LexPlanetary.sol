@@ -10,10 +10,14 @@ contract LexPay is RoyaltySplitter, FlagshipAdaptiveBase {
     /// @param missingNonces   Count of missing PCI nonces in sequence
     /// @param dailyVolumeUSD  Daily tx volume (USD)
     /// @param sanctioned      True if counter-party is on OFAC list
-    function checkPay(uint256 missingNonces, uint256 dailyVolumeUSD, bool sanctioned) external payable returns (uint256 fused) {
+    function checkPay(
+        uint256 missingNonces,
+        uint256 dailyVolumeUSD,
+        bool sanctioned
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 90 * 25 / 1_000_000; // 0.90 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 90 * 25) / 1_000_000; // 0.90 multiplier
 
         uint256[] memory signals = new uint256[](3);
         signals[0] = missingNonces;
@@ -37,8 +41,8 @@ contract LexPay is RoyaltySplitter, FlagshipAdaptiveBase {
         fused = sum / 10000;
 
         bool compliant = (missingNonces <= 10) &&
-                         (dailyVolumeUSD <= 10000) &&
-                         (!sanctioned);
+            (dailyVolumeUSD <= 10000) &&
+            (!sanctioned);
         if (!compliant) {
             _splitRoyalty{value: royaltyWei}();
         }

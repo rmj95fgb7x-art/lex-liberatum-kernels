@@ -8,10 +8,12 @@ contract LexShip is RoyaltySplitter, FlagshipAdaptiveBase {
     constructor(address _beneficiary) RoyaltySplitter(_beneficiary) {}
 
     /// @param organismsPerCubicM  Organism count per m³ from ballast sensor
-    function checkBallast(uint256 organismsPerCubicM) external payable returns (uint256 fused) {
+    function checkBallast(
+        uint256 organismsPerCubicM
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 90 * 25 / 1_000_000; // 0.90 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 90 * 25) / 1_000_000; // 0.90 multiplier
 
         uint256[] memory signals = new uint256[](1);
         signals[0] = organismsPerCubicM;
@@ -20,7 +22,7 @@ contract LexShip is RoyaltySplitter, FlagshipAdaptiveBase {
         distances[0] = organismsPerCubicM;
 
         uint256[] memory weights = adaptiveWeights(distances);
-        fused = signals[0] * weights[0] / 10000;
+        fused = (signals[0] * weights[0]) / 10000;
 
         if (organismsPerCubicM > 10) {
             _splitRoyalty{value: royaltyWei}();

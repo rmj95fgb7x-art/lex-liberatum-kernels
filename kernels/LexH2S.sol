@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
-import "../src/RoyaltySplitter.sol";
+import "src/RoyaltySplitter.sol";
 
 /// @title LexH2S
 /// @notice 25 bp royalty on oil-field H₂S (hydrogen sulfide) exposure compliance:
@@ -30,7 +30,7 @@ contract LexH2S is RoyaltySplitter {
                          (drillCompleted);
 
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

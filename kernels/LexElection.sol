@@ -11,10 +11,15 @@ contract LexElection is RoyaltySplitter, FlagshipAdaptiveBase {
     /// @param signatureMatchPermille Signature match score (0–1000)
     /// @param timestampDriftSec   Clock drift from official time
     /// @param precinctMatch       True if ballot precinct == scanning precinct
-    function checkElection(uint256 custodyGapSec, uint256 signatureMatchPermille, uint256 timestampDriftSec, bool precinctMatch) external payable returns (uint256 fused) {
+    function checkElection(
+        uint256 custodyGapSec,
+        uint256 signatureMatchPermille,
+        uint256 timestampDriftSec,
+        bool precinctMatch
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 110 * 25 / 1_000_000; // 1.10 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 110 * 25) / 1_000_000; // 1.10 multiplier
 
         uint256[] memory signals = new uint256[](4);
         signals[0] = custodyGapSec;
@@ -40,11 +45,11 @@ contract LexElection is RoyaltySplitter, FlagshipAdaptiveBase {
         fused = sum / 10000;
 
         bool compliant = (custodyGapSec <= 300) &&
-                         (signatureMatchPermille >= 850) &&
-                         (timestampDriftSec <= 60) &&
-                         (precinctMatch);
+            (signatureMatchPermille >= 850) &&
+            (timestampDriftSec <= 60) &&
+            (precinctMatch);
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 

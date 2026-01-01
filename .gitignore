@@ -1,0 +1,28 @@
+# Foundry
+out/
+cache/
+broadcast/
+lib/
+chain/out/
+chain/cache/
+chain/broadcast/
+chain/lib/
+
+# Rust
+target/
+Cargo.lock
+
+# Node / Vite
+node_modules/
+dist/
+.DS_Store
+dashboard/node_modules/
+dashboard/dist/
+
+# Environment
+.env
+.env.bak
+.env.local
+.env.example.bak
+chain/.env
+.deploy.log

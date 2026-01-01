@@ -2,8 +2,8 @@
 pragma solidity ^0.8.25;
 
 import "forge-std/Script.sol";
-import "../src/KEX.sol";
-import "../src/KernelFactory.sol";
+import "../contracts/KEX.sol";
+import "../contracts/KernelFactory.sol";
 
 contract DeployFactoryAndKEX is Script {
     address constant BENEFICIARY = 0x44f8219cBABad92E6bf245D8c767179629D8C689;

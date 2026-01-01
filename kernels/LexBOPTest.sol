@@ -1,12 +1,23 @@
 pragma solidity ^0.8.25;
+<<<<<<< HEAD
+import "src/RoyaltySplitter.sol";
+contract LexBOPTest is RoyaltySplitter {
+    uint256 public constant MIN_HOLD_MIN = 5;
+=======
 import "../src/FlagshipAdaptiveBase.sol";
 import "../src/RoyaltySplitter.sol";
 
 contract LexBOPTest is RoyaltySplitter, FlagshipAdaptiveBase {
     uint256 public constant MIN_HOLD_MIN = 5; // ≥ 5 min hold
+>>>>>>> main
     uint256 public constant GAS_PER_CALL = 105_000;
 
     constructor(address _beneficiary) RoyaltySplitter(_beneficiary) {}
+<<<<<<< HEAD
+    function checkBOPTest(uint256 holdMinutes) external payable {
+        uint256 royaltyWei = (105_000 * block.basefee * 105 * 25) / 1_000_000;
+        if (holdMinutes < MIN_HOLD_MIN) _splitRoyalty(royaltyWei);
+=======
 
     /// @param holdMinutes    Hold time at test pressure (minutes)
     function checkBOPTest(uint256 holdMinutes) external payable returns (uint256 fused) {
@@ -30,5 +41,6 @@ contract LexBOPTest is RoyaltySplitter, FlagshipAdaptiveBase {
 
     function vertical() external pure returns (string memory) {
         return "LexBOPTest-Adaptive";
+>>>>>>> main
     }
 }

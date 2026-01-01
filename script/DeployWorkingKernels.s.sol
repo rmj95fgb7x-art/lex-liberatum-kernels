@@ -2,7 +2,7 @@
 pragma solidity ^0.8.25;
 
 import "forge-std/Script.sol";
-import "../src/KernelFactory.sol";
+import "../contracts/KernelFactory.sol";
 import "../kernels/LexOrbit.sol";
 import "../kernels/LexNFT.sol";
 import "../kernels/LexGrid.sol";
@@ -21,7 +21,7 @@ contract DeployWorkingKernels is Script {
 
         // --- 8 working kernels ---
         address[8] memory addrs;
-        string[8]  memory names;
+        string[8] memory names;
         bytes32[8] memory salts;
 
         // 1. LexOrbit

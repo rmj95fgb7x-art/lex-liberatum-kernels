@@ -12,10 +12,15 @@ contract LexDocket is RoyaltySplitter, FlagshipAdaptiveBase {
     /// @param exhibitCount    Number of exhibits attached
     /// @param hasRedaction    True if document contains redacted text
     /// @param jurisdictionOk  True if filing court has jurisdiction
-    function checkDocket(uint256 fileSizeBytes, uint256 exhibitCount, bool hasRedaction, bool jurisdictionOk) external payable returns (uint256 fused) {
+    function checkDocket(
+        uint256 fileSizeBytes,
+        uint256 exhibitCount,
+        bool hasRedaction,
+        bool jurisdictionOk
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 80 * 25 / 1_000_000; // 0.80 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 80 * 25) / 1_000_000; // 0.80 multiplier
 
         // Build signal vector: [fileSize, exhibitCount, redactionFlag, jurisdictionFlag]
         uint256[] memory signals = new uint256[](4);

@@ -10,10 +10,14 @@ contract LexChart is RoyaltySplitter, FlagshipAdaptiveBase {
     /// @param icd10      Patient primary ICD-10 code (3-byte prefix)
     /// @param dosageMg   Daily dosage in milligrams
     /// @param costUSD    Estimated drug cost per month (USD)
-    function checkChart(bytes3 icd10, uint256 dosageMg, uint256 costUSD) external payable returns (uint256 fused) {
+    function checkChart(
+        bytes3 icd10,
+        uint256 dosageMg,
+        uint256 costUSD
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 120 * 25 / 1_000_000; // 1.20 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 120 * 25) / 1_000_000; // 1.20 multiplier
 
         uint256[] memory signals = new uint256[](3);
         signals[0] = uint256(icd10);
@@ -38,13 +42,17 @@ contract LexChart is RoyaltySplitter, FlagshipAdaptiveBase {
 
         bool requiresAuth = (costUSD > 1000) || _isHighCostICD(icd10);
         if (requiresAuth) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 
     function _isHighCostICD(bytes3 icd10) internal pure returns (bool) {
         // example high-cost prefixes
-        return (icd10 == bytes3("L40")) || (icd10 == bytes3("M05")) || (icd10 == bytes3("K50")) || (icd10 == bytes3("C92"));
+        return
+            (icd10 == bytes3("L40")) ||
+            (icd10 == bytes3("M05")) ||
+            (icd10 == bytes3("K50")) ||
+            (icd10 == bytes3("C92"));
     }
 
     function vertical() external pure returns (string memory) {

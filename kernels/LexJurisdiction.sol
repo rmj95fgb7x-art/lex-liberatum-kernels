@@ -3,19 +3,23 @@ import "../src/AdaptiveKernelBase.sol";
 import "../src/RoyaltySplitter.sol";
 
 contract LexJurisdiction is RoyaltySplitter, AdaptiveKernelBase {
-    uint256 public constant MIN_CONTACTS_COUNT = 1;    // ≥ 1 contact
+    uint256 public constant MIN_CONTACTS_COUNT = 1; // ≥ 1 contact
     uint256 public constant MAX_VENUE_MISMATCH_KM = 50; // ≤ 50 km venue error
-    uint256 public constant GAS_PER_CALL        = 75_000;
+    uint256 public constant GAS_PER_CALL = 75_000;
 
     constructor(address _beneficiary) RoyaltySplitter(_beneficiary) {}
 
     /// @param contactsCount     Number of established minimum contacts
     /// @param venueMismatchKm   Kilometres between proper and chosen venue
     /// @param subjectMatterOk   True if court has subject-matter jurisdiction
-    function checkJurisdiction(uint256 contactsCount, uint256 venueMismatchKm, bool subjectMatterOk) external payable returns (uint256 fused) {
+    function checkJurisdiction(
+        uint256 contactsCount,
+        uint256 venueMismatchKm,
+        bool subjectMatterOk
+    ) external payable returns (uint256 fused) {
         uint256 gasUsed = GAS_PER_CALL;
         uint256 baseFee = block.basefee;
-        uint256 royaltyWei = gasUsed * baseFee * 75 * 25 / 1_000_000; // 0.75 multiplier
+        uint256 royaltyWei = (gasUsed * baseFee * 75 * 25) / 1_000_000; // 0.75 multiplier
 
         uint256[] memory signals = new uint256[](3);
         signals[0] = contactsCount;
@@ -39,10 +43,10 @@ contract LexJurisdiction is RoyaltySplitter, AdaptiveKernelBase {
         fused = sum / 10000;
 
         bool compliant = (contactsCount >= MIN_CONTACTS_COUNT) &&
-                         (venueMismatchKm <= MAX_VENUE_MISMATCH_KM) &&
-                         (subjectMatterOk);
+            (venueMismatchKm <= MAX_VENUE_MISMATCH_KM) &&
+            (subjectMatterOk);
         if (!compliant) {
-            _splitRoyalty{value: royaltyWei}();
+            _splitRoyalty(royaltyWei);
         }
     }
 
