@@ -1,9 +1,8 @@
-// SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
-import "../src/AdaptiveKernelBase.sol";
+import "../src/FlagshipAdaptiveBase.sol";
 import "../src/RoyaltySplitter.sol";
 
-contract LexInsurance is RoyaltySplitter, AdaptiveKernelBase {
+contract LexInsurance is RoyaltySplitter, FlagshipAdaptiveBase {
     uint256 public constant MAX_PREMIUM_DAYS_LATE = 30; // ≤ 30 days overdue
     uint256 public constant GAS_PER_CALL          = 75_000;
 
