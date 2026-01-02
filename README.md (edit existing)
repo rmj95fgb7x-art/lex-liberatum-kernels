@@ -1,8 +1,0 @@
-# Lex-Liberatum-Kernels  
-**One CLI → 1 000 vertical decision kernels → 25 bp royalties forever.**
-
-## ⚡ one-command live proof (60 s)
-```bash
-git clone https://github.com/rmj95fgb7x-art/lex-liberatum-kernels
-cd lex-liberatum-kernels
-bash quickstart.sh      # edit .env with test-net key when asked
