@@ -1,4 +1,39 @@
-// SPDX-License-Identifier: Patent-Pending
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract RoyaltySplitter {
+    address[] public recipients;
+    uint256[] public shares;
+
+    event RoyaltiesSet(address[] recipients, uint256[] shares);
+
+    constructor(address[] memory _recipients, uint256[] memory _shares) {
+        require(_recipients.length == _shares.length, "Recipients and shares must have the same length");
+        require(_recipients.length > 0, "At least one recipient is required");
+        for (uint256 i = 0; i < _shares.length; i++) {
+            require(_shares[i] > 0, "Shares must be greater than zero");
+        }
+
+        recipients = _recipients;
+        shares = _shares;
+
+        emit RoyaltiesSet(recipients, shares);
+    }
+
+    function distributeRoyalty(uint256 amount) public {
+        require(amount > 0, "Amount must be greater than zero");
+
+        uint256 totalShares = 0;
+        for (uint256 i = 0; i < shares.length; i++) {
+            totalShares += shares[i];
+        }
+
+        for (uint256 i = 0; i < recipients.length; i++) {
+            uint256 shareAmount = (amount * shares[i]) / totalShares;
+            payable(recipients[i]).transfer(shareAmount);
+        }
+    }
+}// SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
 
 /// @title RoyaltySplitter
