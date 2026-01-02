@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Patent-Pending
 pragma solidity ^0.8.25;
-import "../src/AdaptiveKernelBase.sol";
+import "../src/FlagshipAdaptiveBase.sol";
 import "../src/RoyaltySplitter.sol";
 
-contract LexDeadline is RoyaltySplitter, AdaptiveKernelBase {
-    uint256 public constant MAX_DAYS_BEFORE_DEADLINE = 1;   // must file ≥ 1 day before
+contract LexDeadline is RoyaltySplitter, FlagshipAdaptiveBase {
+    uint256 public constant MAX_DAYS_BEFORE_DEADLINE = 1;   // ≥ 1 day before
     uint256 public constant MAX_EXTENSION_DAYS        = 30; // ≤ 30 day extension
     uint256 public constant GAS_PER_CALL              = 70_000;
 
@@ -41,7 +41,10 @@ contract LexDeadline is RoyaltySplitter, AdaptiveKernelBase {
         }
         fused = sum / 10000; // scale back
 
-        if (fused > 1500) { // 15-day threshold (scaled)
+        bool compliant = (daysUntilDeadline >= MAX_DAYS_BEFORE_DEADLINE) &&
+                         (extensionDays <= MAX_EXTENSION_DAYS) &&
+                         (proofOfService);
+        if (!compliant) {
             _splitRoyalty{value: royaltyWei}();
         }
     }
