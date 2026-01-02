@@ -1,8 +1,8 @@
 pragma solidity ^0.8.25;
-import "../src/AdaptiveKernelBase.sol";
+import "../src/FlagshipAdaptiveBase.sol";
 import "../src/RoyaltySplitter.sol";
 
-contract LexRedact is RoyaltySplitter, AdaptiveKernelBase {
+contract LexRedact is RoyaltySplitter, FlagshipAdaptiveBase {
     uint256 public constant MAX_SSN_COUNT     = 0;   // zero SSNs visible
     uint256 public constant MAX_DOB_COUNT     = 0;   // zero DOBs visible
     uint256 public constant MIN_REDACT_PERCENT = 95; // ≥ 95 % coverage
@@ -26,7 +26,7 @@ contract LexRedact is RoyaltySplitter, AdaptiveKernelBase {
         uint256[] memory distances = new uint256[](3);
         uint256[] memory sorted = new uint256[](3);
         for (uint256 i = 0; i < 3; i++) sorted[i] = signals[i];
-        uint256 median = sorted[1];
+        uint256 median = sorted[1]; // length = 3 → median at index 1
         for (uint256 i = 0; i < 3; i++) {
             int256 diff = int256(signals[i]) - int256(median);
             distances[i] = diff < 0 ? uint256(-diff) : uint256(diff);
