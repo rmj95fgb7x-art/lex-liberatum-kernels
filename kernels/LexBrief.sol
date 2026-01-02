@@ -1,8 +1,8 @@
 pragma solidity ^0.8.25;
-import "../src/AdaptiveKernelBase.sol";
+import "../src/FlagshipAdaptiveBase.sol";
 import "../src/RoyaltySplitter.sol";
 
-contract LexBrief is RoyaltySplitter, AdaptiveKernelBase {
+contract LexBrief is RoyaltySplitter, FlagshipAdaptiveBase {
     uint256 public constant MAX_PAGE_COUNT   = 50;
     uint256 public constant MIN_FONT_SIZE_PT = 12;
     uint256 public constant GAS_PER_CALL     = 80_000;
@@ -23,7 +23,7 @@ contract LexBrief is RoyaltySplitter, AdaptiveKernelBase {
         uint256[] memory distances = new uint256[](2);
         uint256[] memory sorted = new uint256[](2);
         for (uint256 i = 0; i < 2; i++) sorted[i] = signals[i];
-        uint256 median = sorted[0] + (sorted[1] - sorted[0]) / 2; // length=2 → median = avg
+        uint256 median = (sorted[0] + sorted[1]) / 2; // length = 2 → median = average
         for (uint256 i = 0; i < 2; i++) {
             int256 diff = int256(signals[i]) - int256(median);
             distances[i] = diff < 0 ? uint256(-diff) : uint256(diff);
