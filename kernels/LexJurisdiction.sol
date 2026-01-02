@@ -1,8 +1,8 @@
 pragma solidity ^0.8.25;
-import "../src/AdaptiveKernelBase.sol";
+import "../src/FlagshipAdaptiveBase.sol";
 import "../src/RoyaltySplitter.sol";
 
-contract LexJurisdiction is RoyaltySplitter, AdaptiveKernelBase {
+contract LexJurisdiction is RoyaltySplitter, FlagshipAdaptiveBase {
     uint256 public constant MIN_CONTACTS_COUNT = 1;    // ≥ 1 contact
     uint256 public constant MAX_VENUE_MISMATCH_KM = 50; // ≤ 50 km venue error
     uint256 public constant GAS_PER_CALL        = 75_000;
@@ -25,7 +25,7 @@ contract LexJurisdiction is RoyaltySplitter, AdaptiveKernelBase {
         uint256[] memory distances = new uint256[](3);
         uint256[] memory sorted = new uint256[](3);
         for (uint256 i = 0; i < 3; i++) sorted[i] = signals[i];
-        uint256 median = sorted[1];
+        uint256 median = sorted[1]; // length = 3 → median at index 1
         for (uint256 i = 0; i < 3; i++) {
             int256 diff = int256(signals[i]) - int256(median);
             distances[i] = diff < 0 ? uint256(-diff) : uint256(diff);
