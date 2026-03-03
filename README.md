@@ -1,5 +1,10 @@
 ## Key Paper: FFT-wei Kernel Primitives
-
+Perfected Security UCC Filing Number
+2602211227565-9
+Initial Filing Number
+2602211227564-2
+Filed On
+February 21, 2026 12:30 PM
 [FFT-wei: Weighted Spectral Oracles for Robust Fusion](path/to/your-paper.pdf)  
 - Theorem 1: O(1/√n) MSE convergence  
 - Benchmarks: 400x swarm speedup, 136% fraud AUC lift  
